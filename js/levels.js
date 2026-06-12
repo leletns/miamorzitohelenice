@@ -753,6 +753,37 @@ const THEMES = {
         });
       }
 
+      // mercadinho O Amigão
+      tiled(camX, 0.55, 460, 90, (x) => {
+        const mx = x + 150;
+        px(ctx, mx - 2, 98, 68, 50, '#b8922a');
+        px(ctx, mx, 100, 64, 48, '#e8c23c');
+        px(ctx, mx + 4, 103, 56, 12, '#c8332e');
+        signText(ctx, 'O AMIGAO', mx + 8, 112, '#fff3e0', 6);
+        // toldo listrado
+        for (let s = 0; s < 7; s++) {
+          px(ctx, mx + 2 + s * 9, 116, 5, 4, s % 2 ? '#c8332e' : '#f4f1ea');
+          px(ctx, mx + 7 + s * 9, 116, 4, 4, s % 2 ? '#f4f1ea' : '#c8332e');
+        }
+        // vitrine com prateleiras e porta
+        px(ctx, mx + 6, 122, 20, 26, '#7ec0d8');
+        px(ctx, mx + 8, 128, 16, 2, '#4a8aa0');
+        px(ctx, mx + 8, 136, 16, 2, '#4a8aa0');
+        px(ctx, mx + 9, 124, 3, 4, '#e8543f');
+        px(ctx, mx + 14, 124, 3, 4, '#67a06f');
+        px(ctx, mx + 19, 124, 3, 4, '#f0b428');
+        px(ctx, mx + 30, 122, 14, 26, '#5e4630');
+        px(ctx, mx + 32, 124, 10, 24, '#8a6a3e');
+        px(ctx, mx + 40, 134, 2, 2, '#f0b428');
+        // caixotes de frutas na calçada
+        px(ctx, mx + 48, 134, 13, 6, '#8a5a32');
+        px(ctx, mx + 49, 131, 5, 3, '#e8543f');
+        px(ctx, mx + 55, 131, 5, 3, '#f0b428');
+        px(ctx, mx + 48, 142, 13, 6, '#8a5a32');
+        px(ctx, mx + 49, 139, 5, 3, '#67a06f');
+        px(ctx, mx + 55, 139, 5, 3, '#8a5e9e');
+      });
+
       // fios elétricos cruzando
       ctx.strokeStyle = '#2c2138';
       ctx.lineWidth = 1;

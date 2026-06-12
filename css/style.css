@@ -316,6 +316,12 @@ img[data-icon] { image-rendering: pixelated; vertical-align: middle; }
   user-select: none; -webkit-user-select: none;
 }
 .tc-left { display: flex; gap: 14px; }
+.tc-right { display: flex; gap: 14px; align-items: flex-end; }
+.tc-run {
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #1f3a66; border-color: #3a64a8; color: #c8e2ff;
+  box-shadow: 0 5px 0 #11203a;
+}
 .tc-btn {
   width: 64px; height: 64px;
   font-family: var(--px-font); font-size: 1rem;

@@ -38,11 +38,11 @@ const HELEN_MAPS = {
     '.oHHoSSSommmoSSSSoHHo.',
     '..oHHoSSSSSSSSSSoHHo..',
     '..oHHHoooooooooHHHo...',
-    '..oHHo.oWWWWWWo.oHHo..',
+    '..oHHo.oWWcWWWo.oHHo..',
     '..oHHoWWWWWWWWWWoHHo..',
     '..oHHoWWWWWWWWWWoHHo..',
-    '...oooSWWWWWWWWSooo...',
-    '.....oSoWWWWWWoSo.....',
+    '...oooTWWWWWWWWSooo...',
+    '.....oToWWWWWWoSo.....',
     '......oWWWWWWWWo......',
     '......oJJJJJJJJo......',
     '......oJJJJJJJJo......',
@@ -66,11 +66,11 @@ const HELEN_MAPS = {
     '.oHHoSSSommmoSSSSoHHo.',
     '..oHHoSSSSSSSSSSoHHo..',
     '..oHHHoooooooooHHHo...',
-    '..oHHo.oWWWWWWo.oHHo..',
+    '..oHHo.oWWcWWWo.oHHo..',
     '..oHHoWWWWWWWWWWoHHo..',
     '..oHHoWWWWWWWWWWoHHo..',
-    '...oooSWWWWWWWWSooo...',
-    '.....oSoWWWWWWoSo.....',
+    '...oooTWWWWWWWWSooo...',
+    '.....oToWWWWWWoSo.....',
     '......oWWWWWWWWo......',
     '......oJJJJJJJJo......',
     '......oJJJJJJJJo......',
@@ -94,7 +94,7 @@ const HELEN_MAPS = {
     '.oHHoSSSommmoSSSSoHHo.',
     '..oHHoSSSSSSSSSSoHHo..',
     '..oHHHoooooooooHHHo...',
-    'So.oHo.oWWWWWWo.oHo.oS',
+    'So.oHo.oWWcWWWo.oHo.oS',
     'oSoHHoWWWWWWWWWWoHHoSo',
     '.ooHHoWWWWWWWWWWoHHoo.',
     '...oooWWWWWWWWWWooo...',
@@ -129,7 +129,7 @@ const LE_MAPS = {
     '.oHHoSSSommmoSSSSoHHo.',
     '..oHHoSSSSSSSSSSoHHo..',
     '..oHHHoooooooooHHHo...',
-    '..oHHo.oVVVVVVo.oHHo..',
+    '..oHHo.oVVcVVVo.oHHo..',
     '..oHHoVVoWWWWoVVoHHo..',
     '..oHHoVVoWWWWoVVoHHo..',
     '...oooVVoWWWWoVVooo...',
@@ -157,7 +157,7 @@ const LE_MAPS = {
     '.oHHoSSSommmoSSSSoHHo.',
     '..oHHoSSSSSSSSSSoHHo..',
     '..oHHHoooooooooHHHo...',
-    '..oHHo.oVVVVVVo.oHHo..',
+    '..oHHo.oVVcVVVo.oHHo..',
     '..oHHoVVoWWWWoVVoHHo..',
     '..oHHoVVoWWWWoVVoHHo..',
     '...oooVVoWWWWoVVooo...',
@@ -185,7 +185,7 @@ const LE_MAPS = {
     '.oHHoSSSommmoSSSSoHHo.',
     '..oHHoSSSSSSSSSSoHHo..',
     '..oHHHoooooooooHHHo...',
-    'So.oHo.oVVVVVVo.oHo.oS',
+    'So.oHo.oVVcVVVo.oHo.oS',
     'oSoHHoVVoWWWWoVVoHHoSo',
     '.ooHHoVVoWWWWoVVoHHoo.',
     '...oooVVoWWWWoVVooo...',
@@ -277,7 +277,7 @@ const CHARACTERS = [
       S: '#b9805a', P: '#1c0f08', X: '#ffffff',
       m: '#7a3a38', R: '#d98a76',
       G: '#2e2e3a', V: '#6e9460', W: '#f4f1ea',
-      j: '#3a3f52', K: '#f0ece2',
+      j: '#3a3f52', K: '#f0ece2', c: '#d8dde6',
     },
   },
   {
@@ -291,6 +291,7 @@ const CHARACTERS = [
       S: '#f2cfae', P: '#1a0d05', X: '#ffffff',
       m: '#a8554e', R: '#f0a89c',
       W: '#f6f3ee', J: '#7e9ec2', K: '#f0ece2',
+      c: '#f2c14e', T: '#b56060',
     },
   },
   {
@@ -488,10 +489,14 @@ function drawBouquet(ctx, canvasW, canvasH, t) {
 
   // ---- caule + folhas ----
   const stems = [
-    { fx: 60, fy: 40, r: 17 },
-    { fx: 31, fy: 64, r: 12 },
-    { fx: 89, fy: 62, r: 12 },
-    { fx: 60, fy: 76, r: 10 },
+    { fx: 60, fy: 36, r: 17 },
+    { fx: 30, fy: 58, r: 12 },
+    { fx: 90, fy: 56, r: 12 },
+    { fx: 44, fy: 44, r: 10 },
+    { fx: 77, fy: 42, r: 10 },
+    { fx: 21, fy: 80, r: 9 },
+    { fx: 99, fy: 78, r: 9 },
+    { fx: 60, fy: 74, r: 11 },
   ];
   for (const s of stems) {
     const topX = s.fx + sway;
@@ -540,10 +545,15 @@ function drawBouquet(ctx, canvasW, canvasH, t) {
     // brilho no miolo
     B(cx - cr * 0.4, cy - cr * 0.4, '#9c6a36');
   };
-  flower(60, 40, 17, 0);
-  flower(31, 64, 12, 2.1);
-  flower(89, 62, 12, 4.2);
-  flower(60, 76, 10, 1.3);
+  // do fundo pra frente, buquê bem cheio
+  flower(44, 44, 10, 3.4);
+  flower(77, 42, 10, 5.1);
+  flower(21, 80, 9, 0.7);
+  flower(99, 78, 9, 2.8);
+  flower(30, 58, 12, 2.1);
+  flower(90, 56, 12, 4.2);
+  flower(60, 36, 17, 0);
+  flower(60, 74, 11, 1.3);
 
   // ---- papel kraft ----
   for (let yy = CONE_Y; yy <= 142; yy += 2) {

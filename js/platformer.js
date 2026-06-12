@@ -102,8 +102,9 @@ const Platformer = (() => {
     const left = keys.ArrowLeft || keys.a || touch.left;
     const right = keys.ArrowRight || keys.d || touch.right;
     const jump = keys.ArrowUp || keys[' '] || keys.w || touch.jump;
+    const run = keys.Shift || keys.x || touch.run;
 
-    const speed = s.char.type === 'cat' ? 1.85 : 1.6;
+    const speed = (s.char.type === 'cat' ? 1.85 : 1.6) * (run ? 1.55 : 1);
     if (left) { p.vx = -speed; p.facing = -1; }
     else if (right) { p.vx = speed; p.facing = 1; }
     else p.vx *= 0.7;
@@ -556,6 +557,7 @@ const Platformer = (() => {
     bind('btn-left', 'left');
     bind('btn-right', 'right');
     bind('btn-jump', 'jump');
+    bind('btn-run', 'run');
   }
 
   return {

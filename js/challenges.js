@@ -51,17 +51,17 @@ const THEME_NAMES = {
 
 // Legendas das 10 fotos (polaroids do álbum e da cartinha)
 const PHOTOS = [
-  { src: 'assets/photos/p01.jpg', caption: 'a dupla mais linda desse espelho' },
-  { src: 'assets/photos/p02.jpg', caption: 'esse sorriso é meu lugar favorito' },
-  { src: 'assets/photos/p03.jpg', caption: 'pense verde, ame a Helen' },
-  { src: 'assets/photos/p04.jpg', caption: 'deitadas no banco, deixando o mundo passar' },
-  { src: 'assets/photos/p05.jpg', caption: 'festa, luz rosa e a gente' },
-  { src: 'assets/photos/p06.jpg', caption: 'até a preguiça fica boa do seu lado' },
-  { src: 'assets/photos/p07.jpg', caption: 'céu azul com gostinho de beijo seu' },
-  { src: 'assets/photos/p08.jpg', caption: 'apertadinha em você é onde eu moro' },
-  { src: 'assets/photos/p09.jpg', caption: 'qualquer sofá vira lar contigo' },
-  { src: 'assets/photos/p10.jpg', caption: 'aquela noite, aquele beijo, a gente' },
-  { src: 'assets/photos/p11.jpg', caption: 'feliz dia dos namorados, minha gata' },
+  { src: 'assets/photos/p01.jpg', caption: '💙' },
+  { src: 'assets/photos/p02.jpg', caption: '💙' },
+  { src: 'assets/photos/p03.jpg', caption: '💙' },
+  { src: 'assets/photos/p04.jpg', caption: '💙' },
+  { src: 'assets/photos/p05.jpg', caption: '💙' },
+  { src: 'assets/photos/p06.jpg', caption: '💙' },
+  { src: 'assets/photos/p07.jpg', caption: '💙' },
+  { src: 'assets/photos/p08.jpg', caption: '💙' },
+  { src: 'assets/photos/p09.jpg', caption: '💙' },
+  { src: 'assets/photos/p10.jpg', caption: '💙' },
+  { src: 'assets/photos/p11.jpg', caption: '💙' },
 ];
 
 // ============================================================
@@ -112,9 +112,10 @@ const BOARD_LUCK = [
 // ============================================================
 const LETTER_TITLE = 'Pra você, meu Leãozinho';
 const LETTER_PARAGRAPHS = [
-  'Oi, amor. Feliz Dia dos Namorados.',
+  'Oi, amor. Feliz dia dos momos.',
   'Você sabe que eu falo muito. Me explico, volto, detalho, penso alto... kkkkk. Então dessa vez eu tentei fazer diferente: em vez de mais um textão, eu fiz um lugar. Do meu jeito, tive a ideia de criar cada cantinho aqui com um motivo.',
-  'Coloquei os nossos lugares: o banquinho do pense verde, o sofá vermelho da sala New York, o méqui de sempre, a Lagoa, a praia de noite, as ladeiras. Andando por eles pra montar o jogo, eu percebi uma coisa que no fundo eu já sabia: nenhum desses lugares é especial sozinho. Eles viraram nossos porque você estava neles.',
+  'Não vou te contar o que tem dentro. Vai jogando, que você vai entendendo. Só te adianto uma coisa que eu percebi montando tudo isso: nenhum lugar é especial sozinho. Eles foram virando nossos porque você estava neles.',
+  'E sim, eu amo os nossos dates de shopping. Em todos os climas, em qualquer tempo — de sol, de chuva, de "só vou olhar uma coisinha". Contigo, qualquer corredor vira o meu programa favorito.',
   'Eu continuo achando que a gente é uma casa em obra, sem previsão de entrega das chaves. E continuo achando essa a melhor parte. Não tenho pressa nenhuma. Construir com você nunca foi o atraso — sempre foi a parte boa.',
   'Obrigada por ser o lugar onde eu durmo de janela aberta e luz apagada. Onde eu posso falar demais sem precisar me explicar. Onde ser eu não é excesso.',
   'Amo tu, minha gata. Amo esses seus olhinhos de jabuticaba, pretinhos e brilhantes, os meus favoritos do mundo inteiro. Quando eles me olham, eu entendo o que é casa.',
