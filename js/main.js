@@ -109,11 +109,11 @@ function renderAlbum() {
     fig.className = 'album-pol' + (unlocked ? '' : ' locked');
     fig.innerHTML = unlocked
       ? `<img src="${p.src}" alt=""><figcaption>${p.caption}</figcaption>`
-      : `<div class="pol-lock">🔒</div><figcaption>Complete fases para desbloquear</figcaption>`;
+      : `<div class="pol-lock">?</div><figcaption>Complete fases para desbloquear</figcaption>`;
     ph.appendChild(fig);
   });
   document.getElementById('album-count').textContent =
-    `${save.unlockedPhotos.length}/${PHOTOS.length} fotos`;
+    `${save.unlockedPhotos.length}/${PHOTOS.length} FOTOS DESBLOQUEADAS`;
 
   const ach = document.getElementById('album-achievements');
   ach.innerHTML = '';
@@ -121,13 +121,13 @@ function renderAlbum() {
     const got = !!save.achievements[a.id];
     const el = document.createElement('div');
     el.className = 'ach' + (got ? ' got' : '');
-    el.innerHTML = `<span class="ach-emoji">${got ? a.emoji : '❔'}</span>
-      <div><b>${a.name}</b><br><small>${a.desc}</small></div>`;
+    el.innerHTML = `<span class="ach-emoji">${got ? a.emoji : '?'}</span>
+      <div><b>${a.name.toUpperCase()}</b><small>${a.desc}</small></div>`;
     ach.appendChild(el);
   }
 
   document.getElementById('album-stats').innerHTML =
-    `★ Recorde: <b>${save.bestScore}</b> &nbsp;·&nbsp; ❤️ Total: <b>${save.totalHearts}</b> &nbsp;·&nbsp; 💍 Banco: <b>${save.ringsBank}</b>`;
+    `HI-SCORE <b>${save.bestScore}</b> · CORAÇÕES <b>${save.totalHearts}</b> · ALIANÇAS <b>${save.ringsBank}</b>`;
 }
 
 // ---------- Cartinha ----------
@@ -184,19 +184,30 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-win-replay').addEventListener('click', () => Board.init());
   document.getElementById('btn-win-menu').addEventListener('click', () => show('screen-home'));
 
-  // corações flutuando no hub
+  // ícones pixel-art nos elementos marcados
+  document.querySelectorAll('img[data-icon]').forEach((im) => {
+    im.src = iconDataURL(im.dataset.icon, parseInt(im.dataset.scale || '4', 10));
+  });
+
+  // corações pixel flutuando no título
   const floatBox = document.getElementById('floating-hearts');
   if (floatBox) {
-    for (let i = 0; i < 14; i++) {
-      const h = document.createElement('span');
+    const heartURL = iconDataURL('heart', 3);
+    for (let i = 0; i < 10; i++) {
+      const h = document.createElement('img');
       h.className = 'float-heart';
-      h.textContent = ['💕', '💗', '🍇', '💜', '❤️'][i % 5];
+      h.src = heartURL;
       h.style.left = Math.random() * 100 + '%';
-      h.style.animationDuration = 7 + Math.random() * 9 + 's';
-      h.style.animationDelay = -Math.random() * 10 + 's';
-      h.style.fontSize = 10 + Math.random() * 14 + 'px';
+      h.style.width = 10 + Math.random() * 14 + 'px';
+      h.style.animationDuration = 9 + Math.random() * 10 + 's';
+      h.style.animationDelay = -Math.random() * 12 + 's';
       floatBox.appendChild(h);
     }
+  }
+
+  // garante a fonte pixel antes de desenhar placas no canvas
+  if (document.fonts && document.fonts.load) {
+    document.fonts.load('6px "Press Start 2P"');
   }
 
   show('screen-home');

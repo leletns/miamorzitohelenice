@@ -1,12 +1,14 @@
 // Service worker: guarda TUDO em cache para o presente funcionar
 // offline, para sempre, no celular dela. 💕
-const CACHE = 'miamorzito-v1';
+const CACHE = 'miamorzito-v2';
 
 const ASSETS = [
   './',
   './index.html',
   './manifest.webmanifest',
   './css/style.css',
+  './assets/fonts/pressstart2p-latin.woff2',
+  './assets/fonts/pressstart2p-latin-ext.woff2',
   './js/challenges.js',
   './js/sprites.js',
   './js/levels.js',

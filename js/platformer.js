@@ -28,7 +28,7 @@ const Platformer = (() => {
     save.achievements[id] = true;
     Save.commit();
     const a = ACHIEVEMENTS.find((x) => x.id === id);
-    if (a) showToast(`${a.emoji} Conquista: ${a.name}!`);
+    if (a) showToast(`CONQUISTA · ${a.name.toUpperCase()}`);
     SFX.fanfare();
   }
 
@@ -182,7 +182,7 @@ const Platformer = (() => {
         const save = Save.get();
         save.ringsBank++;
         Save.commit();
-        showToast('💍 Aliança de prata! +50');
+        showToast('ALIANÇA DE PRATA +50');
       }
     }
 
@@ -248,24 +248,67 @@ const Platformer = (() => {
     ctx.save();
     ctx.translate(-Math.round(s.cam), 0);
 
-    // chão
-    px(ctx, s.cam - 4, GROUND_Y, GAME_W + 8, 4, lv.theme.ground.top);
-    px(ctx, s.cam - 4, GROUND_Y + 4, GAME_W + 8, GAME_H - GROUND_Y - 4, lv.theme.ground.body);
+    // chão texturizado do tema
+    lv.theme.drawGround(ctx, s.cam - 4, s.cam + GAME_W + 4);
 
     // plataformas
     for (const pl of lv.platforms) {
       if (pl.x + pl.w < s.cam - 20 || pl.x > s.cam + GAME_W + 20) continue;
-      px(ctx, pl.x, pl.y, pl.w, 3, lv.theme.platform.top);
-      px(ctx, pl.x + 2, pl.y + 3, pl.w - 4, pl.h - 3, lv.theme.platform.body);
+      const P = lv.theme.platform;
       if (pl.type === 'bench') {
-        px(ctx, pl.x + 3, pl.y + pl.h, 3, GROUND_Y - pl.y - pl.h, lv.theme.platform.body);
-        px(ctx, pl.x + pl.w - 6, pl.y + pl.h, 3, GROUND_Y - pl.y - pl.h, lv.theme.platform.body);
-        tinyText(ctx, 'PENSE VERDE', pl.x + 4, pl.y - 2, '#1d5635', 5);
+        // banco de madeira verde com ripas e pés de ferro
+        px(ctx, pl.x, pl.y, pl.w, 2, P.top);
+        px(ctx, pl.x, pl.y + 3, pl.w, 2, P.top);
+        px(ctx, pl.x, pl.y + 6, pl.w, 2, P.body);
+        px(ctx, pl.x + 4, pl.y + pl.h, 2, GROUND_Y - pl.y - pl.h, '#2b2b36');
+        px(ctx, pl.x + pl.w - 6, pl.y + pl.h, 2, GROUND_Y - pl.y - pl.h, '#2b2b36');
+        px(ctx, pl.x + 2, GROUND_Y - 2, 6, 2, '#2b2b36');
+        px(ctx, pl.x + pl.w - 8, GROUND_Y - 2, 6, 2, '#2b2b36');
+        // plaquinha PENSE VERDE no encosto
+        px(ctx, pl.x + pl.w / 2 - 24, pl.y - 12, 48, 9, '#1d4d33');
+        px(ctx, pl.x + pl.w / 2 - 23, pl.y - 11, 46, 7, '#2c6a46');
+        signText(ctx, 'PENSE VERDE', pl.x + pl.w / 2 - 22, pl.y - 5, '#cfe8b8', 4);
+        px(ctx, pl.x + pl.w / 2 - 1, pl.y - 3, 2, 3, '#1d4d33');
       } else if (pl.type === 'sofa') {
-        px(ctx, pl.x - 3, pl.y - 6, 5, pl.h + 6, lv.theme.platform.body);
-        px(ctx, pl.x + pl.w - 2, pl.y - 6, 5, pl.h + 6, lv.theme.platform.body);
+        // poltrona dupla de cinema
+        px(ctx, pl.x - 3, pl.y - 10, 4, pl.h + 10, P.body);
+        px(ctx, pl.x + pl.w - 1, pl.y - 10, 4, pl.h + 10, P.body);
+        px(ctx, pl.x - 3, pl.y - 10, 4, 2, '#d9445a');
+        px(ctx, pl.x + pl.w - 1, pl.y - 10, 4, 2, '#d9445a');
+        px(ctx, pl.x, pl.y, pl.w, 3, P.top);
+        px(ctx, pl.x, pl.y + 3, pl.w, pl.h - 3, P.body);
+        px(ctx, pl.x + pl.w / 2 - 1, pl.y + 1, 2, pl.h - 2, '#5e1620');
+        px(ctx, pl.x + 1, pl.y + pl.h, 3, GROUND_Y - pl.y - pl.h, '#1c0b14');
+        px(ctx, pl.x + pl.w - 4, pl.y + pl.h, 3, GROUND_Y - pl.y - pl.h, '#1c0b14');
       } else if (pl.type === 'table') {
-        px(ctx, pl.x + pl.w / 2 - 2, pl.y + pl.h, 4, GROUND_Y - pl.y - pl.h, '#a37718');
+        // mesa do méqui com banco
+        px(ctx, pl.x, pl.y, pl.w, 3, P.top);
+        px(ctx, pl.x + 1, pl.y + 3, pl.w - 2, 2, P.body);
+        px(ctx, pl.x + pl.w / 2 - 2, pl.y + 5, 4, GROUND_Y - pl.y - 5, '#8e8088');
+        px(ctx, pl.x + pl.w / 2 - 7, GROUND_Y - 2, 14, 2, '#8e8088');
+      } else if (pl.type === 'stone') {
+        // mureta de pedra do calçadão
+        px(ctx, pl.x, pl.y, pl.w, 2, P.top);
+        px(ctx, pl.x, pl.y + 2, pl.w, GROUND_Y - pl.y - 2, P.body);
+        for (let bx = pl.x + 4; bx < pl.x + pl.w - 4; bx += 12) {
+          px(ctx, bx, pl.y + 4, 8, 1, '#a39879');
+          px(ctx, bx + 6, pl.y + 8, 8, 1, '#a39879');
+        }
+      } else if (pl.type === 'wood') {
+        // deck de madeira na areia
+        px(ctx, pl.x, pl.y, pl.w, 3, P.top);
+        for (let bx = pl.x; bx < pl.x + pl.w; bx += 8) px(ctx, bx, pl.y, 1, 3, '#4e3a22');
+        px(ctx, pl.x, pl.y + 3, pl.w, 2, P.body);
+        px(ctx, pl.x + 3, pl.y + 5, 2, GROUND_Y - pl.y - 5, '#4e3a22');
+        px(ctx, pl.x + pl.w - 5, pl.y + 5, 2, GROUND_Y - pl.y - 5, '#4e3a22');
+      } else {
+        // laje com mureta
+        px(ctx, pl.x, pl.y, pl.w, 3, P.top);
+        px(ctx, pl.x, pl.y + 3, pl.w, GROUND_Y - pl.y - 3, P.body);
+        px(ctx, pl.x, pl.y + 3, 2, GROUND_Y - pl.y - 3, '#7a6e5c');
+        px(ctx, pl.x + pl.w - 2, pl.y + 3, 2, GROUND_Y - pl.y - 3, '#7a6e5c');
+        px(ctx, pl.x + 3, pl.y - 5, 8, 5, '#3a6aa8');
+        px(ctx, pl.x + 3, pl.y - 5, 8, 1, '#4a82c4');
       }
     }
 
@@ -308,37 +351,57 @@ const Platformer = (() => {
 
     ctx.restore();
 
-    drawHUD();
+    updateHUD();
   }
 
   function drawGoal(ctx, gx, t) {
     // casinha com coração — o "lar"
-    px(ctx, gx, GROUND_Y - 34, 40, 34, '#fdf3e3');
-    px(ctx, gx - 4, GROUND_Y - 34, 48, 5, '#e2725b');
-    px(ctx, gx + 2, GROUND_Y - 42, 36, 8, '#e2725b');
-    px(ctx, gx + 8, GROUND_Y - 48, 24, 6, '#e2725b');
-    px(ctx, gx + 16, GROUND_Y - 16, 10, 16, '#8a5a3b');
+    px(ctx, gx - 2, GROUND_Y - 36, 44, 36, '#e8dcc4');
+    px(ctx, gx + 2, GROUND_Y - 32, 36, 32, '#f4ecd8');
+    // telhado em degraus
+    px(ctx, gx - 6, GROUND_Y - 38, 52, 4, '#c75b4a');
+    px(ctx, gx, GROUND_Y - 44, 40, 6, '#d96a52');
+    px(ctx, gx + 8, GROUND_Y - 50, 24, 6, '#c75b4a');
+    px(ctx, gx + 14, GROUND_Y - 54, 12, 4, '#d96a52');
+    // porta
+    px(ctx, gx + 15, GROUND_Y - 18, 12, 18, '#6e4a2e');
+    px(ctx, gx + 16, GROUND_Y - 17, 10, 17, '#8a5e3a');
+    px(ctx, gx + 24, GROUND_Y - 10, 2, 2, '#f0b428');
+    // janela com luz
+    px(ctx, gx + 4, GROUND_Y - 28, 8, 8, '#2c2138');
+    px(ctx, gx + 5, GROUND_Y - 27, 6, 6, '#ffd98a');
+    px(ctx, gx + 7, GROUND_Y - 27, 1, 6, '#2c2138');
     const pulse = Math.sin(t * 4) > 0 ? 0 : 1;
-    drawHeart(ctx, gx + 16 - pulse / 2, GROUND_Y - 32 - pulse / 2, 1 + pulse * 0.12);
-    tinyText(ctx, 'LAR', gx + 14, GROUND_Y - 36, '#b3322c', 6);
+    drawHeart(ctx, gx + 28, GROUND_Y - 31 - pulse, 1 + pulse * 0.12);
+    signText(ctx, 'LAR', gx + 13, GROUND_Y - 40, '#fff3e0', 5);
   }
 
-  function drawHUD() {
+  const hudEl = {};
+  function updateHUD() {
     const s = state;
-    const save = Save.get();
-    ctx.fillStyle = 'rgba(20,10,18,0.55)';
-    ctx.fillRect(0, 0, GAME_W, 14);
-    drawHeart(ctx, 4, 3, 1);
-    tinyText(ctx, `${s.heartsGot}/${s.level.totalHearts}`, 14, 10, '#fff', 7);
-    drawRing(ctx, 52, 2, 1);
-    tinyText(ctx, `${s.ringsGot}/${s.level.rings.length}`, 63, 10, '#fff', 7);
-    tinyText(ctx, `Nível ${s.levelIndex + 1} · ${THEME_NAMES[s.level.themeId].replace(/ \S+$/, '')}`, 95, 10, '#ffd0da', 7);
-    tinyText(ctx, `★${s.score}`, 240, 10, '#ffd95e', 7);
-    tinyText(ctx, `Rec ${Math.max(save.bestScore, s.score)}`, 278, 10, '#9fe8b8', 6);
-    if (s.combo.mult > 1) {
-      const pop = s.combo.popT > 0 ? 2 : 0;
-      tinyText(ctx, `COMBO x${s.combo.mult}!`, 130, 26 + pop, '#ff8f1f', 9 + pop);
+    if (!hudEl.hearts) {
+      hudEl.hearts = document.getElementById('hud-hearts');
+      hudEl.rings = document.getElementById('hud-rings');
+      hudEl.level = document.getElementById('hud-level');
+      hudEl.score = document.getElementById('hud-score');
+      hudEl.record = document.getElementById('hud-record');
+      hudEl.combo = document.getElementById('hud-combo');
     }
+    const save = Save.get();
+    setText(hudEl.hearts, `${s.heartsGot}/${s.level.totalHearts}`);
+    setText(hudEl.rings, `${s.ringsGot}/${s.level.rings.length}`);
+    setText(hudEl.level, `FASE ${s.levelIndex + 1} ${THEME_NAMES[s.level.themeId]}`);
+    setText(hudEl.score, String(s.score).padStart(5, '0'));
+    setText(hudEl.record, `HI ${String(Math.max(save.bestScore, s.score)).padStart(5, '0')}`);
+    if (s.combo.mult > 1) {
+      setText(hudEl.combo, `COMBO x${s.combo.mult}`);
+      hudEl.combo.classList.toggle('pop', s.combo.popT > 0);
+    } else {
+      setText(hudEl.combo, '');
+    }
+  }
+  function setText(el, v) {
+    if (el && el.textContent !== v) el.textContent = v;
   }
 
   // ---------- Fim de fase ----------
@@ -387,14 +450,16 @@ const Platformer = (() => {
 
     const ov = document.getElementById('polaroid-overlay');
     ov.querySelector('.pol-photo').src = photo.src;
-    ov.querySelector('.pol-place').textContent = THEME_NAMES[s.level.themeId];
+    ov.querySelector('.pol-place').textContent = `FASE ${s.levelIndex + 1} COMPLETA · ${THEME_NAMES[s.level.themeId]}`;
     ov.querySelector('.pol-phrase').textContent = phrase;
     ov.querySelector('.pol-stats').innerHTML =
-      `❤️ ${s.heartsGot}/${s.level.totalHearts} &nbsp; 💍 ${s.ringsGot}/${s.level.rings.length} &nbsp; ★ ${finalScore}` +
-      (newRecord ? '<br><span class="record">🎉 NOVO RECORDE! 🎉</span>' : '');
+      `<img src="${iconDataURL('heart', 2)}" alt=""> ${s.heartsGot}/${s.level.totalHearts}` +
+      ` &nbsp; <img src="${iconDataURL('ring', 2)}" alt=""> ${s.ringsGot}/${s.level.rings.length}` +
+      ` &nbsp; SCORE ${finalScore}` +
+      (newRecord ? '<br><span class="record">NOVO RECORDE!</span>' : '');
     ov.querySelector('.pol-album').textContent =
-      `📸 Álbum: ${save.unlockedPhotos.length}/${PHOTOS.length} fotos desbloqueadas` +
-      (newPhoto !== null ? ' — nova foto! 💕' : '');
+      `ÁLBUM ${save.unlockedPhotos.length}/${PHOTOS.length}` +
+      (newPhoto !== null ? ' · NOVA FOTO DESBLOQUEADA' : '');
     ov.classList.remove('hidden');
     if (newRecord) confettiBurst();
   }
@@ -411,11 +476,11 @@ const Platformer = (() => {
       const card = document.createElement('button');
       card.className = 'char-card' + (save.selectedChar === c.id ? ' selected' : '');
       const cv = document.createElement('canvas');
-      cv.width = 64; cv.height = 64;
+      cv.width = 72; cv.height = 72;
       const cctx = cv.getContext('2d');
       cctx.imageSmoothingEnabled = false;
-      const pxSize = c.type === 'cat' ? 4 : 3.6;
-      drawCharacter(cctx, c, 'walkA', (64 - c.w * pxSize) / 2, (64 - c.h * pxSize) / 2 + 4, pxSize, false, save.equipped[c.id]);
+      const pxSize = c.type === 'cat' ? 3 : 3;
+      drawCharacter(cctx, c, 'walkA', (72 - c.w * pxSize) / 2, (72 - c.h * pxSize) / 2 + 3, pxSize, false, save.equipped[c.id]);
       card.appendChild(cv);
       const nm = document.createElement('div');
       nm.className = 'char-name';
@@ -440,7 +505,7 @@ const Platformer = (() => {
       const b = document.createElement('button');
       b.className = 'shop-item' + (equipped ? ' equipped' : '') + (owned ? ' owned' : '');
       b.innerHTML = `<span class="shop-emoji">${a.emoji}</span><span>${a.name}</span>` +
-        `<small>${owned ? (equipped ? 'Equipado ✓' : 'Toque p/ equipar') : `💍 ${a.cost}`}</small>`;
+        `<small>${owned ? (equipped ? 'EQUIPADO' : 'EQUIPAR') : `<img src="${iconDataURL('ring', 2)}" alt=""> ${a.cost}`}</small>`;
       b.onclick = () => {
         if (!owned) {
           if (save.ringsBank >= a.cost) {
@@ -449,9 +514,9 @@ const Platformer = (() => {
             save.equipped[save.selectedChar] = a.id;
             Save.commit();
             SFX.ring();
-            showToast(`${a.emoji} ${a.name} comprado!`);
+            showToast(`${a.name.toUpperCase()} DESBLOQUEADO`);
           } else {
-            showToast(`Faltam 💍 ${a.cost - save.ringsBank} alianças — colete jogando!`);
+            showToast(`FALTAM ${a.cost - save.ringsBank} ALIANÇAS — COLETE JOGANDO`);
             SFX.hurt();
           }
         } else {
@@ -467,8 +532,8 @@ const Platformer = (() => {
     const cont = document.getElementById('btn-continue');
     const save2 = Save.get();
     cont.textContent = save2.lastLevel > 0
-      ? `▶ Continuar — Nível ${save2.lastLevel + 1}`
-      : '▶ Começar aventura';
+      ? `CONTINUAR · FASE ${save2.lastLevel + 1}`
+      : 'START';
   }
 
   // ---------- Entradas ----------

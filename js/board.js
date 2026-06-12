@@ -10,17 +10,17 @@ const Board = (() => {
   const LAYOUT = 'iffplfpfmfplfpfmflpffpmflfpfmpflpffF'.split('');
 
   const TYPE_INFO = {
-    i: { label: '💕', name: 'Início', cls: 'cell-start' },
-    f: { label: '💗', name: 'Fofa', cls: 'cell-cute' },
-    p: { label: '🔥', name: 'Picante', cls: 'cell-spicy' },
-    l: { label: '⭐', name: 'Sorte', cls: 'cell-luck' },
-    m: { label: '📸', name: 'Memória', cls: 'cell-memory' },
-    F: { label: '🏠', name: 'LAR', cls: 'cell-final' },
+    i: { icon: 'pad', name: 'Início', cls: 'cell-start' },
+    f: { icon: 'heart', name: 'Fofa', cls: 'cell-cute' },
+    p: { icon: 'flame', name: 'Picante', cls: 'cell-spicy' },
+    l: { icon: 'star', name: 'Sorte', cls: 'cell-luck' },
+    m: { icon: 'cam', name: 'Memória', cls: 'cell-memory' },
+    F: { icon: 'house', name: 'LAR', cls: 'cell-final' },
   };
 
   const PLAYERS = [
-    { id: 'helen', name: 'Leãozinho', emoji: '🦁', color: '#e63962', charId: 'helen' },
-    { id: 'le', name: 'Cascãozinho', emoji: '💜', color: '#7e57c2', charId: 'le' },
+    { id: 'helen', name: 'LEÃOZINHO', color: '#c23a5e', charId: 'helen' },
+    { id: 'le', name: 'CASCÃOZINHO', color: '#6a48a8', charId: 'le' },
   ];
 
   let pos, turn, rolling, moving, decks, finished;
@@ -67,7 +67,8 @@ const Board = (() => {
       const c = r % 2 === 0 ? i % COLS : COLS - 1 - (i % COLS);
       cell.style.gridRow = String(Math.ceil(SIZE / COLS) - r);
       cell.style.gridColumn = String(c + 1);
-      cell.innerHTML = `<span class="cell-num">${i === 0 ? '' : i === SIZE - 1 ? '' : i}</span><span class="cell-ico">${t.label}</span>`;
+      cell.innerHTML = `<span class="cell-num">${i === 0 || i === SIZE - 1 ? '' : i}</span>` +
+        `<img src="${iconDataURL(t.icon, 2)}" alt="${t.name}">`;
       grid.appendChild(cell);
     }
   }
@@ -83,21 +84,21 @@ const Board = (() => {
         pawn = document.createElement('canvas');
         pawn.id = 'pawn-' + PLAYERS[pIdx].id;
         pawn.className = 'pawn';
-        pawn.width = 36; pawn.height = 44;
+        pawn.width = 44; pawn.height = 52;
         const c = pawn.getContext('2d');
         c.imageSmoothingEnabled = false;
         const ch = getCharacter(PLAYERS[pIdx].charId);
-        drawCharacter(c, ch, 'walkA', (36 - ch.w * 2.4) / 2, 4, 2.4, false, null);
+        drawCharacter(c, ch, 'walkA', (44 - ch.w * 2.2) / 2, 52 - ch.h * 2.2, 2.2, false, null);
         document.getElementById('board-wrap').appendChild(pawn);
       }
       const cell = cellEl(Math.min(pos[pIdx], SIZE - 1));
       const wrap = document.getElementById('board-wrap');
       const cr = cell.getBoundingClientRect();
       const wr = wrap.getBoundingClientRect();
-      const ox = pIdx === 0 ? -9 : 9;
+      const ox = pIdx === 0 ? -10 : 10;
       pawn.style.transition = instant ? 'none' : 'left .22s ease, top .22s ease';
-      pawn.style.left = (cr.left - wr.left + cr.width / 2 - 18 + ox) + 'px';
-      pawn.style.top = (cr.top - wr.top + cr.height / 2 - 30) + 'px';
+      pawn.style.left = (cr.left - wr.left + cr.width / 2 - 22 + ox) + 'px';
+      pawn.style.top = (cr.top - wr.top + cr.height / 2 - 38) + 'px';
       pawn.style.zIndex = pIdx === turn ? 6 : 5;
     }
   }
@@ -105,7 +106,7 @@ const Board = (() => {
   function updateTurnUI() {
     const p = PLAYERS[turn];
     const el = document.getElementById('turn-banner');
-    el.innerHTML = `Vez do <b>${p.name}</b> ${p.emoji}`;
+    el.textContent = `VEZ DO ${p.name}`;
     el.style.background = p.color;
     document.getElementById('btn-roll').disabled = rolling || moving || finished;
   }
@@ -140,8 +141,7 @@ const Board = (() => {
         const n = secureRandom(6) + 1;
         setDiceFace(n);
         d.classList.remove('rolling');
-        document.getElementById('dice-result').textContent =
-          `${PLAYERS[turn].emoji} tirou ${n}!`;
+        document.getElementById('dice-result').textContent = `TIROU ${n}!`;
         rolling = false;
         movePawn(n);
       }
@@ -184,10 +184,10 @@ const Board = (() => {
     const t = LAYOUT[idx];
     if (t === 'f' || t === 'p') {
       const text = drawCard(t);
-      showCard(t === 'f' ? 'Desafio fofo 💗' : 'Desafio picante 🔥', text, t === 'f' ? 'card-cute' : 'card-spicy', () => endTurn(false));
+      showCard(t === 'f' ? 'DESAFIO FOFO' : 'DESAFIO PICANTE', text, t === 'f' ? 'card-cute' : 'card-spicy', () => endTurn(false));
     } else if (t === 'l') {
       const card = drawCard('l');
-      showCard('Casa da sorte ⭐', card.text, 'card-luck', () => {
+      showCard('CASA DA SORTE', card.text, 'card-luck', () => {
         if (card.again) { endTurn(true); return; }
         if (card.move) { movePawn(card.move); return; }
         endTurn(false);
@@ -203,7 +203,7 @@ const Board = (() => {
   function endTurn(again) {
     if (finished) return;
     if (!again) turn = 1 - turn;
-    else Platformer.showToast(`${PLAYERS[turn].emoji} joga de novo!`);
+    else Platformer.showToast(`${PLAYERS[turn].name} JOGA DE NOVO`);
     placePawns(false);
     updateTurnUI();
   }
@@ -213,8 +213,7 @@ const Board = (() => {
     const card = document.getElementById('card-box');
     card.className = 'card-box ' + cls;
     document.getElementById('card-title').textContent = title;
-    document.getElementById('card-player').textContent =
-      `${PLAYERS[turn].name} ${PLAYERS[turn].emoji}`;
+    document.getElementById('card-player').textContent = PLAYERS[turn].name;
     document.getElementById('card-text').textContent = text;
     const img = document.getElementById('card-photo');
     img.classList.add('hidden');
@@ -230,8 +229,8 @@ const Board = (() => {
     const ov = document.getElementById('card-overlay');
     const card = document.getElementById('card-box');
     card.className = 'card-box card-memory';
-    document.getElementById('card-title').textContent = 'Casa da memória 📸';
-    document.getElementById('card-player').textContent = 'Pra vocês duas 💕';
+    document.getElementById('card-title').textContent = 'CASA DA MEMÓRIA';
+    document.getElementById('card-player').textContent = 'PRA VOCÊS DUAS';
     document.getElementById('card-text').textContent = photo.caption;
     const img = document.getElementById('card-photo');
     img.src = photo.src;
@@ -250,7 +249,7 @@ const Board = (() => {
     const p = PLAYERS[turn];
     const photo = PHOTOS[secureRandom(PHOTOS.length)];
     const ov = document.getElementById('board-win');
-    document.getElementById('win-title').textContent = `${p.name} ${p.emoji} chegou no LAR!`;
+    document.getElementById('win-title').textContent = `${p.name} CHEGOU NO LAR!`;
     document.getElementById('win-photo').src = photo.src;
     ov.classList.remove('hidden');
     SFX.win();
