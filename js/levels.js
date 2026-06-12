@@ -264,71 +264,133 @@ const THEMES = {
     },
   },
 
-  // ===== 3. McDONALD'S — balcão, letreiro, piso xadrez =====
+  // ===== 3. PRAÇA DE ALIMENTAÇÃO — Méqui, pizzaria, chafariz =====
   mcdonalds: {
-    platform: { top: '#f0b428', body: '#c28a1e' },
+    platform: { top: '#f4f1ea', body: '#cabdac' },
     platformType: 'table',
     drawBG(ctx, camX, t) {
-      px(ctx, 0, 0, GAME_W, GAME_H, '#f4e6cf');
-      px(ctx, 0, 0, GAME_W, 20, '#b3322c');
-      px(ctx, 0, 20, GAME_W, 2, '#8e2722');
-      // faixa decorativa
-      px(ctx, 0, 96, GAME_W, 40, '#b3322c');
-      px(ctx, 0, 96, GAME_W, 2, '#d9453e');
-      px(ctx, 0, 134, GAME_W, 2, '#8e2722');
-
-      // letreiro M dourado com fundo
-      tiled(camX, 0.3, 280, 100, (x) => {
-        px(ctx, x + 40, 28, 64, 56, '#8e2722');
-        px(ctx, x + 44, 32, 56, 48, '#b3322c');
-        ctx.fillStyle = '#f7c948';
-        ctx.font = 'bold 44px Georgia, serif';
-        ctx.fillText('M', x + 50, 74);
-        signText(ctx, 'MEQUI', x + 52, 92, '#f7c948', 6);
+      px(ctx, 0, 0, GAME_W, GAME_H, '#f2e4ca');
+      // teto com claraboias
+      px(ctx, 0, 0, GAME_W, 18, '#dcc8a4');
+      px(ctx, 0, 16, GAME_W, 2, '#c2ab82');
+      tiled(camX, 0.2, 60, 40, (x) => {
+        px(ctx, x, 3, 38, 11, '#fdf9f0');
+        px(ctx, x + 18, 3, 2, 11, '#dcc8a4');
       });
 
-      // painel de menu atrás do balcão
-      tiled(camX, 0.5, 240, 130, (x) => {
-        px(ctx, x, 40, 110, 50, '#3a2a1c');
-        px(ctx, x + 4, 44, 30, 20, '#d9a05b');
-        px(ctx, x + 38, 44, 30, 20, '#e8543f');
-        px(ctx, x + 72, 44, 30, 20, '#f0b428');
-        for (let l = 0; l < 3; l++) {
-          px(ctx, x + 6, 68 + l * 6, 44, 2, '#c2b49a');
-          px(ctx, x + 56, 68 + l * 6, 30, 2, '#c2b49a');
+      // quiosques (3 lojas em ciclo, parallax 0.5)
+      tiled(camX, 0.5, 168, 170, (x, k) => {
+        const kind = k % 3;
+        if (kind === 0) {
+          // ----- McDonald's -----
+          px(ctx, x, 36, 140, 96, '#8e2722');
+          px(ctx, x + 4, 40, 132, 88, '#b3322c');
+          // arcos dourados em cima do letreiro
+          ctx.fillStyle = '#f7c948';
+          ctx.font = 'bold 30px Georgia, serif';
+          ctx.fillText('M', x + 56, 62);
+          // letreiro
+          px(ctx, x + 12, 64, 116, 16, '#d9453e');
+          px(ctx, x + 14, 66, 112, 12, '#b3322c');
+          signText(ctx, 'MC DONALDS', x + 22, 76, '#f6f3ee', 6);
+          // balcão com vitrine
+          px(ctx, x + 10, 84, 120, 24, '#3a2a1c');
+          px(ctx, x + 14, 88, 34, 14, '#f0b428');
+          px(ctx, x + 52, 88, 34, 14, '#e8543f');
+          px(ctx, x + 90, 88, 34, 14, '#d9a05b');
+          px(ctx, x + 8, 108, 124, 8, '#d9453e');
+          px(ctx, x + 8, 108, 124, 2, '#f4978e');
+          px(ctx, x + 8, 116, 124, 16, '#8e2722');
+          // caixa e bandejas
+          px(ctx, x + 22, 99, 12, 9, '#3a3440');
+          px(ctx, x + 96, 102, 8, 6, '#f0b428');
+        } else if (kind === 1) {
+          // ----- Pizzaria -----
+          px(ctx, x, 42, 140, 90, '#3e5e46');
+          px(ctx, x + 4, 46, 132, 82, '#4f7d57');
+          // toldo listrado
+          for (let s = 0; s < 14; s++) {
+            px(ctx, x + 4 + s * 10, 46, 5, 12, '#f4f1ea');
+            px(ctx, x + 9 + s * 10, 46, 5, 12, '#c24a42');
+          }
+          px(ctx, x + 4, 58, 132, 2, '#2c4232');
+          // letreiro com pizza
+          px(ctx, x + 34, 64, 72, 16, '#2c4232');
+          signText(ctx, 'PIZZA', x + 54, 76, '#ffd98a', 6);
+          px(ctx, x + 40, 67, 10, 10, '#f0b428');
+          px(ctx, x + 42, 69, 2, 2, '#c24a42');
+          px(ctx, x + 46, 72, 2, 2, '#c24a42');
+          // balcão e forno
+          px(ctx, x + 12, 84, 116, 24, '#5e4630');
+          px(ctx, x + 20, 88, 30, 18, '#3a2a1c');
+          px(ctx, x + 26, 94, 18, 8, '#ff8f3d');
+          px(ctx, x + 10, 108, 120, 8, '#8a6a3e');
+          px(ctx, x + 10, 116, 120, 16, '#5e4630');
+        } else {
+          // ----- Açaí / sucos -----
+          px(ctx, x, 42, 140, 90, '#4a3070');
+          px(ctx, x + 4, 46, 132, 82, '#5e3e8a');
+          px(ctx, x + 30, 62, 80, 16, '#3a2458');
+          signText(ctx, 'ACAI', x + 52, 74, '#d8b8ff', 6);
+          // copos coloridos na prateleira
+          px(ctx, x + 16, 86, 108, 4, '#3a2458');
+          for (let cI = 0; cI < 7; cI++) {
+            const cores = ['#8a5ec2', '#e8825e', '#f0b428', '#67a06f'];
+            px(ctx, x + 22 + cI * 14, 78, 7, 8, cores[cI % 4]);
+          }
+          px(ctx, x + 10, 108, 120, 8, '#8a5ec2');
+          px(ctx, x + 10, 108, 120, 2, '#b89ae0');
+          px(ctx, x + 10, 116, 120, 16, '#4a3070');
         }
-        // balcão
-        px(ctx, x + 0, 110, 130, 8, '#d9453e');
-        px(ctx, x + 0, 118, 130, 22, '#b3322c');
-        px(ctx, x + 0, 110, 130, 2, '#f4978e');
-        // caixa registradora e copos
-        px(ctx, x + 16, 100, 14, 10, '#3a3440');
-        px(ctx, x + 18, 96, 10, 4, '#55505e');
-        px(ctx, x + 60, 102, 6, 8, '#e8543f');
-        px(ctx, x + 70, 104, 6, 6, '#f0b428');
-        // máquina de refri
-        px(ctx, x + 96, 92, 24, 18, '#3a3440');
-        px(ctx, x + 100, 96, 4, 6, '#e8543f');
-        px(ctx, x + 108, 96, 4, 6, '#f0b428');
-        px(ctx, x + 114, 96, 4, 6, '#54a06a');
+        // pilar e planta entre lojas
+        px(ctx, x + 146, 24, 14, 124, '#dcc8a4');
+        px(ctx, x + 146, 24, 4, 124, '#ecdcbc');
+        px(ctx, x + 149, 124, 9, 12, '#a8552f');
+        px(ctx, x + 150, 112, 7, 12, '#4f7d57');
+        px(ctx, x + 148, 116, 4, 7, '#67a06f');
+        px(ctx, x + 155, 116, 4, 7, '#3e5e46');
       });
 
-      // luminárias pendentes
-      tiled(camX, 0.6, 96, 30, (x) => {
-        px(ctx, x, 22, 2, 16, '#5e4630');
-        px(ctx, x - 6, 38, 14, 6, '#f7c948');
-        px(ctx, x - 4, 44, 10, 2, '#fff3c4');
+      // chafariz (parallax 0.68)
+      tiled(camX, 0.68, 520, 80, (x) => {
+        const fx = x + 280;
+        // bacia
+        px(ctx, fx, 128, 56, 12, '#6a9ec2');
+        px(ctx, fx + 2, 130, 52, 8, '#8ec2e0');
+        px(ctx, fx - 3, 138, 62, 5, '#5a7e9c');
+        // coluna e taça
+        px(ctx, fx + 22, 110, 12, 20, '#7eaecb');
+        px(ctx, fx + 14, 106, 28, 6, '#6a9ec2');
+        // jato d'água animado
+        const jet = Math.floor(t * 8) % 3;
+        px(ctx, fx + 26, 96 - jet, 4, 12, '#cfe8f8');
+        px(ctx, fx + 22, 92 - jet, 2, 4, '#e8f4fc');
+        px(ctx, fx + 32, 93 - jet, 2, 4, '#e8f4fc');
+        // gotinhas
+        px(ctx, fx + 12, 120 + jet, 2, 2, '#cfe8f8');
+        px(ctx, fx + 42, 118 + jet, 2, 2, '#cfe8f8');
+      });
+
+      // mesinhas ao fundo (parallax 0.82)
+      tiled(camX, 0.82, 110, 30, (x, k) => {
+        if (k % 3 === 0) return;
+        px(ctx, x, 132, 26, 4, '#f4f1ea');
+        px(ctx, x + 11, 136, 4, 12, '#8e8088');
+        px(ctx, x - 8, 138, 7, 3, '#c24a42');
+        px(ctx, x - 7, 141, 2, 7, '#8e8088');
+        px(ctx, x + 27, 138, 7, 3, '#c24a42');
+        px(ctx, x + 31, 141, 2, 7, '#8e8088');
       });
     },
     drawGround(ctx, x0, x1) {
-      // piso xadrez vermelho e creme
-      px(ctx, x0, GROUND_Y, x1 - x0, GAME_H - GROUND_Y, '#e8dcc4');
-      for (let x = Math.floor(x0 / 12) * 12; x < x1; x += 12) {
-        for (let ry = 0; ry < 3; ry++) {
-          if ((x / 12 + ry) % 2 === 0) px(ctx, x, GROUND_Y + ry * 10, 12, 10, '#c24a42');
-        }
+      // piso de praça de alimentação: lajotas grandes
+      px(ctx, x0, GROUND_Y, x1 - x0, GAME_H - GROUND_Y, '#e0d2b4');
+      px(ctx, x0, GROUND_Y, x1 - x0, 2, '#f0e6cc');
+      for (let x = Math.floor(x0 / 32) * 32; x < x1; x += 32) {
+        px(ctx, x, GROUND_Y, 1, GAME_H - GROUND_Y, '#c4b290');
+        if ((x / 32) % 2 === 0) px(ctx, x, GROUND_Y + 14, 32, 1, '#c4b290');
+        px(ctx, x + 8, GROUND_Y + 5, 16, 1, '#f0e6cc88');
       }
-      px(ctx, x0, GROUND_Y, x1 - x0, 1, '#fff7e8');
     },
     obstacles: {
       static: {

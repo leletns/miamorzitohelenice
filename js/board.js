@@ -1,5 +1,5 @@
 // ============================================================
-// "Tabuleiro do Amor" — ludo digital para jogarem juntinhas
+// Tabuleiro do amor — estilo ludo, para jogar em dupla
 // ============================================================
 
 const Board = (() => {
@@ -7,21 +7,16 @@ const Board = (() => {
   const COLS = 6;
 
   // tipos: i=início, f=fofa, p=picante, l=sorte, m=memória, F=final
+  // (fofa e picante têm a MESMA cara no tabuleiro — surpresa só na carta)
   const LAYOUT = 'iffplfpfmfplfpfmflpffpmflfpfmpflpffF'.split('');
 
-  const TYPE_INFO = {
-    i: { icon: 'pad', name: 'Início', cls: 'cell-start' },
-    f: { icon: 'heart', name: 'Fofa', cls: 'cell-cute' },
-    p: { icon: 'flame', name: 'Picante', cls: 'cell-spicy' },
-    l: { icon: 'star', name: 'Sorte', cls: 'cell-luck' },
-    m: { icon: 'cam', name: 'Memória', cls: 'cell-memory' },
-    F: { icon: 'house', name: 'LAR', cls: 'cell-final' },
-  };
-
   const PLAYERS = [
-    { id: 'helen', name: 'LEÃOZINHO', color: '#c23a5e', charId: 'helen' },
-    { id: 'le', name: 'CASCÃOZINHO', color: '#6a48a8', charId: 'le' },
+    { id: 'helen', name: 'Leãozinho', color: '#e0476c', charId: 'helen' },
+    { id: 'le', name: 'Cascãozinho', color: '#7a5bbf', charId: 'le' },
   ];
+
+  // cores de trilha estilo ludo
+  const TRACK = ['lc-r', 'lc-g', 'lc-y', 'lc-b'];
 
   let pos, turn, rolling, moving, decks, finished;
 
@@ -42,7 +37,7 @@ const Board = (() => {
 
   function init() {
     pos = [0, 0];
-    turn = 0; // Leãozinho começa 🦁
+    turn = 0; // Leãozinho começa
     rolling = false;
     moving = false;
     finished = false;
@@ -59,16 +54,29 @@ const Board = (() => {
     const grid = document.getElementById('board-grid');
     grid.innerHTML = '';
     for (let i = 0; i < SIZE; i++) {
+      const t = LAYOUT[i];
       const cell = document.createElement('div');
-      const t = TYPE_INFO[LAYOUT[i]];
-      cell.className = 'board-cell ' + t.cls;
       cell.dataset.idx = i;
       const r = Math.floor(i / COLS);
       const c = r % 2 === 0 ? i % COLS : COLS - 1 - (i % COLS);
       cell.style.gridRow = String(Math.ceil(SIZE / COLS) - r);
       cell.style.gridColumn = String(c + 1);
-      cell.innerHTML = `<span class="cell-num">${i === 0 || i === SIZE - 1 ? '' : i}</span>` +
-        `<img src="${iconDataURL(t.icon, 2)}" alt="${t.name}">`;
+
+      let cls = 'board-cell ' + TRACK[i % TRACK.length];
+      let inner = `<span class="cell-num">${i === 0 || i === SIZE - 1 ? '' : i}</span>`;
+      if (t === 'i') {
+        cls = 'board-cell cell-start';
+        inner += '<span class="cell-mark">›</span>';
+      } else if (t === 'F') {
+        cls = 'board-cell cell-final';
+        inner += '<span class="cell-mark">♥</span>';
+      } else if (t === 'l') {
+        inner += '<span class="cell-mark">★</span>';
+      } else if (t === 'm') {
+        inner += `<span class="cell-mark"><img src="${iconDataURL('cam', 2)}" alt=""></span>`;
+      }
+      cell.className = cls;
+      cell.innerHTML = inner;
       grid.appendChild(cell);
     }
   }
@@ -88,7 +96,8 @@ const Board = (() => {
         const c = pawn.getContext('2d');
         c.imageSmoothingEnabled = false;
         const ch = getCharacter(PLAYERS[pIdx].charId);
-        drawCharacter(c, ch, 'walkA', (44 - ch.w * 2.2) / 2, 52 - ch.h * 2.2, 2.2, false, null);
+        const sc = Math.min(44 / ch.w, 52 / ch.h);
+        drawCharacter(c, ch, 'walkA', (44 - ch.w * sc) / 2, 52 - ch.h * sc, sc, false, null);
         document.getElementById('board-wrap').appendChild(pawn);
       }
       const cell = cellEl(Math.min(pos[pIdx], SIZE - 1));
@@ -106,7 +115,7 @@ const Board = (() => {
   function updateTurnUI() {
     const p = PLAYERS[turn];
     const el = document.getElementById('turn-banner');
-    el.textContent = `VEZ DO ${p.name}`;
+    el.textContent = `Vez do ${p.name}`;
     el.style.background = p.color;
     document.getElementById('btn-roll').disabled = rolling || moving || finished;
   }
@@ -141,7 +150,7 @@ const Board = (() => {
         const n = secureRandom(6) + 1;
         setDiceFace(n);
         d.classList.remove('rolling');
-        document.getElementById('dice-result').textContent = `TIROU ${n}!`;
+        document.getElementById('dice-result').textContent = `Tirou ${n}!`;
         rolling = false;
         movePawn(n);
       }
@@ -183,11 +192,12 @@ const Board = (() => {
   function resolveCell(idx) {
     const t = LAYOUT[idx];
     if (t === 'f' || t === 'p') {
+      // mesma cara de "Desafio" — a surpresa vem no texto
       const text = drawCard(t);
-      showCard(t === 'f' ? 'DESAFIO FOFO' : 'DESAFIO PICANTE', text, t === 'f' ? 'card-cute' : 'card-spicy', () => endTurn(false));
+      showCard('Desafio', text, 'card-challenge', () => endTurn(false));
     } else if (t === 'l') {
       const card = drawCard('l');
-      showCard('CASA DA SORTE', card.text, 'card-luck', () => {
+      showCard('Sorte', card.text, 'card-luck', () => {
         if (card.again) { endTurn(true); return; }
         if (card.move) { movePawn(card.move); return; }
         endTurn(false);
@@ -203,7 +213,7 @@ const Board = (() => {
   function endTurn(again) {
     if (finished) return;
     if (!again) turn = 1 - turn;
-    else Platformer.showToast(`${PLAYERS[turn].name} JOGA DE NOVO`);
+    else Platformer.showToast(`${PLAYERS[turn].name} joga de novo`);
     placePawns(false);
     updateTurnUI();
   }
@@ -229,8 +239,8 @@ const Board = (() => {
     const ov = document.getElementById('card-overlay');
     const card = document.getElementById('card-box');
     card.className = 'card-box card-memory';
-    document.getElementById('card-title').textContent = 'CASA DA MEMÓRIA';
-    document.getElementById('card-player').textContent = 'PRA VOCÊS DUAS';
+    document.getElementById('card-title').textContent = 'Memória';
+    document.getElementById('card-player').textContent = 'Pra vocês duas';
     document.getElementById('card-text').textContent = photo.caption;
     const img = document.getElementById('card-photo');
     img.src = photo.src;
@@ -249,7 +259,7 @@ const Board = (() => {
     const p = PLAYERS[turn];
     const photo = PHOTOS[secureRandom(PHOTOS.length)];
     const ov = document.getElementById('board-win');
-    document.getElementById('win-title').textContent = `${p.name} CHEGOU NO LAR!`;
+    document.getElementById('win-title').textContent = `${p.name} chegou no lar!`;
     document.getElementById('win-photo').src = photo.src;
     ov.classList.remove('hidden');
     SFX.win();

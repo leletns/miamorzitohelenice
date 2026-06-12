@@ -1,52 +1,39 @@
-# Mi Amorzito Helenice 💕
+# Mi Amorzito Helenice
 
-Um presente de Dia dos Namorados da **Lê (Cascãozinho 💜)** para a **Helen (Leãozinho 🦁)** —
-feito para durar **para sempre**: sem servidores pagos, sem dependências, sem prazo de validade.
+Presente de Dia dos Namorados da Lê para a Helen. Site estático, sem dependências
+externas — funciona para sempre e offline depois de instalado no celular.
 
-## O que tem aqui dentro
+## O que tem
 
-- 🕹️ **Nossa Aventura** — jogo de plataforma pixel-art (estilo Mario/Sonic) passeando pelos
-  cantinhos do casal: Via Parque (com o banquinho "PENSE VERDE"), Cinema New York do
-  BarraShopping, McDonald's, Lagoa, praia à noite e Rocinha ilustrada. Colete ❤️ corações e
-  💍 alianças de prata, desbloqueie as 10 fotos, conquistas e acessórios. Jogue com a Lê, a
-  Helen, a gatinha siamesa ou a Nice. 🐈‍⬛
-- 🎲 **Tabuleiro do Amor** — ludo digital para jogarem juntinhas no mesmo celular, com dado
-  aleatório animado, casas fofas 💗, picantes 🔥, de sorte ⭐ e de memória 📸.
-- 📸 **Nosso Álbum** — fotos e conquistas desbloqueadas jogando.
-- 💌 **Nossa Cartinha** — a declaração de Dia dos Namorados.
+- **Nossa aventura** — plataforma 2D em pixel art pelos lugares do casal (Via Parque,
+  Cine New York, praça de alimentação, Lagoa, praia à noite, Rocinha), com 4 personagens,
+  corações, alianças, combos, recordes, conquistas e 10 fotos desbloqueáveis
+- **Tabuleiro do amor** — estilo ludo, para duas jogadoras no mesmo celular, com dado
+  animado e cartas surpresa
+- **Nosso álbum** — fotos e conquistas
+- **Nossa cartinha** — a declaração
 
-## Como publicar (1 minuto, faça isso primeiro!)
+## Publicar no Netlify
 
-1. Abra **Settings → Pages** neste repositório:
-   `https://github.com/leletns/miamorzitohelenice/settings/pages`
-2. Em **Build and deployment → Source**, escolha **GitHub Actions**. Pronto, é só isso.
-3. O workflow roda sozinho a cada push. Quando terminar (aba **Actions**), o presente fica em:
+1. Entre em [app.netlify.com](https://app.netlify.com) e faça login
+2. **Add new site → Import an existing project** e conecte este repositório
+   (branch `main`, sem comando de build, publish directory = `/`)
+   — ou **Deploy manually** e arraste a pasta do projeto inteira
+3. Pronto: o Netlify gera o link na hora (dá para personalizar o nome do site
+   em *Site settings → Change site name*)
 
-   **https://leletns.github.io/miamorzitohelenice/** 💝
+## Instalar no celular (vira app, funciona offline)
 
-> Dica: se o workflow já tiver rodado antes de você ativar o Pages, vá na aba **Actions**,
-> abra "Publicar no GitHub Pages 💕" e clique em **Re-run all jobs**.
+- **iPhone (Safari):** abrir o link → compartilhar → *Adicionar à Tela de Início*
+- **Android (Chrome):** abrir o link → menu ⋮ → *Adicionar à tela inicial*
 
-## Como a Helen instala no celular (vira um app, funciona offline para sempre)
-
-**iPhone (Safari):** abrir o link → botão de compartilhar (quadradinho com seta) →
-**Adicionar à Tela de Início** → aparece o ícone de coração 💕.
-
-**Android (Chrome):** abrir o link → menu ⋮ → **Adicionar à tela inicial** (ou
-"Instalar app").
-
-Depois de aberto uma vez, o app funciona **sem internet** — tudo fica salvo no celular
-(fotos, jogos, progresso, recordes).
+O progresso (recordes, fotos, conquistas, acessórios) fica salvo no aparelho.
 
 ## Personalizar
 
-- Frases dos cantinhos, desafios do tabuleiro e a cartinha: `js/challenges.js`
-- Fotos: troque os arquivos em `assets/photos/` (p01 a p10) e as legendas em `js/challenges.js`
-- Cores de cabelo/roupa dos personagens: `js/sprites.js` (paletas em `CHARACTERS`)
+- Frases, desafios e a cartinha: `js/challenges.js`
+- Fotos: `assets/photos/p01.jpg` a `p10.jpg` (legendas em `js/challenges.js`)
+- Cores e roupas das personagens: `js/sprites.js`
 
-> Importante: ao mudar qualquer arquivo, aumente a versão do cache em `sw.js`
-> (`miamorzito-v1` → `v2`) para o app instalado se atualizar.
-
----
-
-Feito com muito amor, pixel por pixel. É de dedinho. ☝🏽💜
+Ao alterar qualquer arquivo, suba a versão do cache em `sw.js`
+(`miamorzito-v3` → `v4`) para o app instalado se atualizar.

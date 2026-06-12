@@ -21,51 +21,51 @@
     <div class="stars"></div>
     <div id="floating-hearts"></div>
     <header class="home-header">
-      <p class="pretitle">LÊ APRESENTA</p>
+      <p class="pretitle">Lê apresenta</p>
       <h1 class="logo">MI AMORZITO<br><span class="logo-accent">HELENICE</span></h1>
-      <p class="subtitle">FELIZ DIA DOS NAMORADOS</p>
+      <p class="subtitle">Feliz Dia dos Namorados</p>
     </header>
     <img class="home-photo" src="assets/photos/p01.jpg" alt="Nós duas">
     <nav class="home-menu">
       <button class="menu-item" data-goto="screen-charselect">
         <img data-icon="pad" data-scale="4" alt="">
-        <span class="mi-text"><b>NOSSA AVENTURA</b><small>plataforma 2D pelos nossos lugares</small></span>
+        <span class="mi-text"><b>Nossa aventura</b></span>
         <span class="mi-arrow">►</span>
       </button>
       <button class="menu-item" data-goto="screen-board">
         <img data-icon="dice" data-scale="4" alt="">
-        <span class="mi-text"><b>TABULEIRO DO AMOR</b><small>modo 2 jogadoras · hoje à noite</small></span>
+        <span class="mi-text"><b>Tabuleiro do amor</b></span>
         <span class="mi-arrow">►</span>
       </button>
       <button class="menu-item" data-goto="screen-album">
         <img data-icon="cam" data-scale="4" alt="">
-        <span class="mi-text"><b>NOSSO ÁLBUM</b><small>fotos e conquistas desbloqueadas</small></span>
+        <span class="mi-text"><b>Nosso álbum</b></span>
         <span class="mi-arrow">►</span>
       </button>
       <button class="menu-item" data-goto="screen-letter">
         <img data-icon="letter" data-scale="4" alt="">
-        <span class="mi-text"><b>NOSSA CARTINHA</b><small>abre, vai... é pra você</small></span>
+        <span class="mi-text"><b>Nossa cartinha</b></span>
         <span class="mi-arrow">►</span>
       </button>
     </nav>
-    <footer class="home-footer">FEITA PELA LÊ · 12.06.2026</footer>
+    <footer class="home-footer">feito pela Lê · 12.06.2026</footer>
   </section>
 
   <!-- ============ SELEÇÃO DE PERSONAGEM ============ -->
   <section id="screen-charselect" class="screen">
     <div class="stars"></div>
-    <button class="btn-back" data-goto="screen-home">◄ VOLTAR</button>
-    <h2 class="screen-title">SELECIONE<br>A PERSONAGEM</h2>
+    <button class="btn-back" data-goto="screen-home">← voltar</button>
+    <h2 class="screen-title">Quem vai jogar?</h2>
     <div id="char-grid" class="char-grid"></div>
 
     <div class="shop">
-      <h3>LOJA <span class="bank"><img data-icon="ring" data-scale="3" alt=""> <span id="rings-bank">0</span></span></h3>
+      <h3>Loja <span class="bank"><img data-icon="ring" data-scale="3" alt=""> <span id="rings-bank">0</span></span></h3>
       <p class="shop-hint">Colete alianças de prata nas fases para desbloquear acessórios</p>
       <div id="shop-grid" class="shop-grid"></div>
     </div>
 
-    <button id="btn-continue" class="btn-big">START</button>
-    <button id="btn-restart-lv1" class="btn-small">RECOMEÇAR DA FASE 1</button>
+    <button id="btn-continue" class="btn-big">Começar</button>
+    <button id="btn-restart-lv1" class="btn-small">Recomeçar da fase 1</button>
   </section>
 
   <!-- ================== JOGO 1 ===================== -->
@@ -100,18 +100,17 @@
         <p class="pol-stats"></p>
         <p class="pol-album"></p>
         <div class="pol-btns">
-          <button id="btn-pol-next" class="btn-big">PRÓXIMA FASE ►</button>
-          <button id="btn-pol-menu" class="btn-small">MENU</button>
+          <button id="btn-pol-next" class="btn-big">Próxima fase</button>
+          <button id="btn-pol-menu" class="btn-small">Menu</button>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ================== JOGO 2 ===================== -->
-  <section id="screen-board" class="screen">
-    <div class="stars"></div>
-    <button class="btn-back" data-goto="screen-home">◄ VOLTAR</button>
-    <h2 class="screen-title">TABULEIRO<br>DO AMOR</h2>
+  <section id="screen-board" class="screen screen-ludo">
+    <button class="btn-back" data-goto="screen-home">← voltar</button>
+    <h2 class="ludo-title">Tabuleiro do amor</h2>
     <div id="turn-banner" class="turn-banner"></div>
 
     <div id="board-wrap" class="board-wrap">
@@ -121,17 +120,10 @@
     <div class="dice-area">
       <div id="dice" class="dice"></div>
       <div class="dice-side">
-        <button id="btn-roll" class="btn-big">ROLAR DADO</button>
+        <button id="btn-roll" class="btn-roll">Rolar dado</button>
         <div id="dice-result" class="dice-result"></div>
       </div>
     </div>
-    <p class="board-hint">
-      <img data-icon="heart" data-scale="2" alt=""> fofa ·
-      <img data-icon="flame" data-scale="2" alt=""> picante ·
-      <img data-icon="star" data-scale="2" alt=""> sorte ·
-      <img data-icon="cam" data-scale="2" alt=""> memória ·
-      chegue no <img data-icon="house" data-scale="2" alt=""> LAR
-    </p>
 
     <!-- Carta de desafio -->
     <div id="card-overlay" class="overlay hidden">
@@ -140,7 +132,7 @@
         <p id="card-player" class="card-player"></p>
         <img id="card-photo" class="card-photo hidden" src="" alt="">
         <p id="card-text" class="card-text"></p>
-        <button id="btn-card-done" class="btn-big">FEITO</button>
+        <button id="btn-card-done" class="btn-roll">Feito</button>
       </div>
     </div>
 
@@ -151,8 +143,8 @@
         <img id="win-photo" class="pol-photo" src="" alt="">
         <p class="pol-phrase">Spoiler: nesse jogo as duas sempre ganham.<br>Eu te amo, meus olhinhos de jabuticaba.</p>
         <div class="pol-btns">
-          <button id="btn-win-replay" class="btn-big">JOGAR DE NOVO</button>
-          <button id="btn-win-menu" class="btn-small">MENU</button>
+          <button id="btn-win-replay" class="btn-roll">Jogar de novo</button>
+          <button id="btn-win-menu" class="btn-small">Menu</button>
         </div>
       </div>
     </div>
@@ -161,18 +153,18 @@
   <!-- ==================== ÁLBUM ==================== -->
   <section id="screen-album" class="screen">
     <div class="stars"></div>
-    <button class="btn-back" data-goto="screen-home">◄ VOLTAR</button>
-    <h2 class="screen-title">NOSSO ÁLBUM</h2>
+    <button class="btn-back" data-goto="screen-home">← voltar</button>
+    <h2 class="screen-title">Nosso álbum</h2>
     <p class="screen-tag" id="album-count"></p>
     <p id="album-stats" class="album-stats"></p>
     <div id="album-photos" class="album-photos"></div>
-    <h3 class="screen-sub">CONQUISTAS</h3>
+    <h3 class="screen-sub">Conquistas</h3>
     <div id="album-achievements" class="album-achievements"></div>
   </section>
 
   <!-- ================== CARTINHA =================== -->
   <section id="screen-letter" class="screen screen-letter">
-    <button class="btn-back" data-goto="screen-home">◄ VOLTAR</button>
+    <button class="btn-back" data-goto="screen-home">← voltar</button>
     <article class="letter">
       <h2 id="letter-title" class="letter-title"></h2>
       <div id="letter-body"></div>

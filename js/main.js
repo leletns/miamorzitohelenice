@@ -113,7 +113,7 @@ function renderAlbum() {
     ph.appendChild(fig);
   });
   document.getElementById('album-count').textContent =
-    `${save.unlockedPhotos.length}/${PHOTOS.length} FOTOS DESBLOQUEADAS`;
+    `${save.unlockedPhotos.length}/${PHOTOS.length} fotos desbloqueadas`;
 
   const ach = document.getElementById('album-achievements');
   ach.innerHTML = '';
@@ -122,12 +122,12 @@ function renderAlbum() {
     const el = document.createElement('div');
     el.className = 'ach' + (got ? ' got' : '');
     el.innerHTML = `<span class="ach-emoji">${got ? a.emoji : '?'}</span>
-      <div><b>${a.name.toUpperCase()}</b><small>${a.desc}</small></div>`;
+      <div><b>${a.name}</b><small>${a.desc}</small></div>`;
     ach.appendChild(el);
   }
 
   document.getElementById('album-stats').innerHTML =
-    `HI-SCORE <b>${save.bestScore}</b> · CORAÇÕES <b>${save.totalHearts}</b> · ALIANÇAS <b>${save.ringsBank}</b>`;
+    `recorde <b>${save.bestScore}</b> · corações <b>${save.totalHearts}</b> · alianças <b>${save.ringsBank}</b>`;
 }
 
 // ---------- Cartinha ----------

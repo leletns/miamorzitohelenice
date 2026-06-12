@@ -41,12 +41,12 @@ const PHRASES = {
 const THEME_ORDER = ['viaparque', 'cinema', 'mcdonalds', 'lagoa', 'praia', 'rocinha'];
 
 const THEME_NAMES = {
-  viaparque: 'VIA PARQUE',
-  cinema: 'CINE NEW YORK',
-  mcdonalds: 'MEQUI',
-  lagoa: 'LAGOA',
-  praia: 'PRAIA À NOITE',
-  rocinha: 'ROCINHA',
+  viaparque: 'Via Parque',
+  cinema: 'Cine New York',
+  mcdonalds: 'Praça de alimentação',
+  lagoa: 'Lagoa',
+  praia: 'Praia à noite',
+  rocinha: 'Rocinha',
 };
 
 // Legendas das 10 fotos (polaroids do álbum e da cartinha)

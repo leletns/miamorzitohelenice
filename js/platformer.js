@@ -28,7 +28,7 @@ const Platformer = (() => {
     save.achievements[id] = true;
     Save.commit();
     const a = ACHIEVEMENTS.find((x) => x.id === id);
-    if (a) showToast(`CONQUISTA · ${a.name.toUpperCase()}`);
+    if (a) showToast(`Conquista: ${a.name}`);
     SFX.fanfare();
   }
 
@@ -182,7 +182,7 @@ const Platformer = (() => {
         const save = Save.get();
         save.ringsBank++;
         Save.commit();
-        showToast('ALIANÇA DE PRATA +50');
+        showToast('Aliança de prata +50');
       }
     }
 
@@ -373,7 +373,7 @@ const Platformer = (() => {
     px(ctx, gx + 7, GROUND_Y - 27, 1, 6, '#2c2138');
     const pulse = Math.sin(t * 4) > 0 ? 0 : 1;
     drawHeart(ctx, gx + 28, GROUND_Y - 31 - pulse, 1 + pulse * 0.12);
-    signText(ctx, 'LAR', gx + 13, GROUND_Y - 40, '#fff3e0', 5);
+    signText(ctx, 'lar', gx + 14, GROUND_Y - 40, '#fff3e0', 5);
   }
 
   const hudEl = {};
@@ -390,11 +390,11 @@ const Platformer = (() => {
     const save = Save.get();
     setText(hudEl.hearts, `${s.heartsGot}/${s.level.totalHearts}`);
     setText(hudEl.rings, `${s.ringsGot}/${s.level.rings.length}`);
-    setText(hudEl.level, `FASE ${s.levelIndex + 1} ${THEME_NAMES[s.level.themeId]}`);
+    setText(hudEl.level, `Fase ${s.levelIndex + 1} · ${THEME_NAMES[s.level.themeId]}`);
     setText(hudEl.score, String(s.score).padStart(5, '0'));
-    setText(hudEl.record, `HI ${String(Math.max(save.bestScore, s.score)).padStart(5, '0')}`);
+    setText(hudEl.record, `rec ${String(Math.max(save.bestScore, s.score)).padStart(5, '0')}`);
     if (s.combo.mult > 1) {
-      setText(hudEl.combo, `COMBO x${s.combo.mult}`);
+      setText(hudEl.combo, `Combo x${s.combo.mult}`);
       hudEl.combo.classList.toggle('pop', s.combo.popT > 0);
     } else {
       setText(hudEl.combo, '');
@@ -450,16 +450,16 @@ const Platformer = (() => {
 
     const ov = document.getElementById('polaroid-overlay');
     ov.querySelector('.pol-photo').src = photo.src;
-    ov.querySelector('.pol-place').textContent = `FASE ${s.levelIndex + 1} COMPLETA · ${THEME_NAMES[s.level.themeId]}`;
+    ov.querySelector('.pol-place').textContent = `Fase ${s.levelIndex + 1} completa · ${THEME_NAMES[s.level.themeId]}`;
     ov.querySelector('.pol-phrase').textContent = phrase;
     ov.querySelector('.pol-stats').innerHTML =
       `<img src="${iconDataURL('heart', 2)}" alt=""> ${s.heartsGot}/${s.level.totalHearts}` +
       ` &nbsp; <img src="${iconDataURL('ring', 2)}" alt=""> ${s.ringsGot}/${s.level.rings.length}` +
-      ` &nbsp; SCORE ${finalScore}` +
-      (newRecord ? '<br><span class="record">NOVO RECORDE!</span>' : '');
+      ` &nbsp; ${finalScore} pontos` +
+      (newRecord ? '<br><span class="record">Novo recorde!</span>' : '');
     ov.querySelector('.pol-album').textContent =
-      `ÁLBUM ${save.unlockedPhotos.length}/${PHOTOS.length}` +
-      (newPhoto !== null ? ' · NOVA FOTO DESBLOQUEADA' : '');
+      `Álbum ${save.unlockedPhotos.length}/${PHOTOS.length}` +
+      (newPhoto !== null ? ' · nova foto desbloqueada' : '');
     ov.classList.remove('hidden');
     if (newRecord) confettiBurst();
   }
@@ -484,7 +484,7 @@ const Platformer = (() => {
       card.appendChild(cv);
       const nm = document.createElement('div');
       nm.className = 'char-name';
-      nm.innerHTML = `<b>${c.name}</b><br><small>${c.sub}</small>`;
+      nm.innerHTML = `<b>${c.name}</b>`;
       card.appendChild(nm);
       card.onclick = () => {
         save.selectedChar = c.id;
@@ -505,7 +505,7 @@ const Platformer = (() => {
       const b = document.createElement('button');
       b.className = 'shop-item' + (equipped ? ' equipped' : '') + (owned ? ' owned' : '');
       b.innerHTML = `<span class="shop-emoji">${a.emoji}</span><span>${a.name}</span>` +
-        `<small>${owned ? (equipped ? 'EQUIPADO' : 'EQUIPAR') : `<img src="${iconDataURL('ring', 2)}" alt=""> ${a.cost}`}</small>`;
+        `<small>${owned ? (equipped ? 'equipado' : 'equipar') : `<img src="${iconDataURL('ring', 2)}" alt=""> ${a.cost}`}</small>`;
       b.onclick = () => {
         if (!owned) {
           if (save.ringsBank >= a.cost) {
@@ -514,9 +514,9 @@ const Platformer = (() => {
             save.equipped[save.selectedChar] = a.id;
             Save.commit();
             SFX.ring();
-            showToast(`${a.name.toUpperCase()} DESBLOQUEADO`);
+            showToast(`${a.name} desbloqueado`);
           } else {
-            showToast(`FALTAM ${a.cost - save.ringsBank} ALIANÇAS — COLETE JOGANDO`);
+            showToast(`Faltam ${a.cost - save.ringsBank} alianças — colete jogando`);
             SFX.hurt();
           }
         } else {
@@ -532,8 +532,8 @@ const Platformer = (() => {
     const cont = document.getElementById('btn-continue');
     const save2 = Save.get();
     cont.textContent = save2.lastLevel > 0
-      ? `CONTINUAR · FASE ${save2.lastLevel + 1}`
-      : 'START';
+      ? `Continuar — fase ${save2.lastLevel + 1}`
+      : 'Começar';
   }
 
   // ---------- Entradas ----------
