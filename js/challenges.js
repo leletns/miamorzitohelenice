@@ -31,7 +31,7 @@ const PHRASES = {
     'A lua viu a gente e ficou com inveja.',
   ],
   rocinha: [
-    'De ladeira em ladeira, de laje em laje: contigo qualquer caminho é casa.',
+    'Você fica comigo até quando eu tô dodói — já esteve em muitas emergências comigo. Isso é amor.',
     'Nenhuma subida é difícil quando é com você.',
     'Casa não é lugar, é você. Em qualquer cantinho do mundo.',
   ],
@@ -51,16 +51,17 @@ const THEME_NAMES = {
 
 // Legendas das 10 fotos (polaroids do álbum e da cartinha)
 const PHOTOS = [
-  { src: 'assets/photos/p01.jpg', caption: 'Nós duas, do jeito que eu amo' },
-  { src: 'assets/photos/p02.jpg', caption: 'Esse sorriso é meu lugar favorito' },
-  { src: 'assets/photos/p03.jpg', caption: 'Pense verde, ame a Helen' },
-  { src: 'assets/photos/p04.jpg', caption: 'Deitadas no banco, vendo o mundo passar' },
-  { src: 'assets/photos/p05.jpg', caption: 'Festa, luz rosa e a gente' },
-  { src: 'assets/photos/p06.jpg', caption: 'Acordar do seu lado é meu presente diário' },
-  { src: 'assets/photos/p07.jpg', caption: 'Céu azul com gostinho de beijo seu' },
-  { src: 'assets/photos/p08.jpg', caption: 'Apertadinha em você é onde eu moro' },
-  { src: 'assets/photos/p09.jpg', caption: 'Qualquer sofá vira lar contigo' },
-  { src: 'assets/photos/p10.jpg', caption: 'Aquela noite, aquele beijo, a gente' },
+  { src: 'assets/photos/p01.jpg', caption: 'a dupla mais linda desse espelho' },
+  { src: 'assets/photos/p02.jpg', caption: 'esse sorriso é meu lugar favorito' },
+  { src: 'assets/photos/p03.jpg', caption: 'pense verde, ame a Helen' },
+  { src: 'assets/photos/p04.jpg', caption: 'deitadas no banco, deixando o mundo passar' },
+  { src: 'assets/photos/p05.jpg', caption: 'festa, luz rosa e a gente' },
+  { src: 'assets/photos/p06.jpg', caption: 'até a preguiça fica boa do seu lado' },
+  { src: 'assets/photos/p07.jpg', caption: 'céu azul com gostinho de beijo seu' },
+  { src: 'assets/photos/p08.jpg', caption: 'apertadinha em você é onde eu moro' },
+  { src: 'assets/photos/p09.jpg', caption: 'qualquer sofá vira lar contigo' },
+  { src: 'assets/photos/p10.jpg', caption: 'aquela noite, aquele beijo, a gente' },
+  { src: 'assets/photos/p11.jpg', caption: 'feliz dia dos namorados, minha gata' },
 ];
 
 // ============================================================
@@ -112,11 +113,11 @@ const BOARD_LUCK = [
 const LETTER_TITLE = 'Pra você, meu Leãozinho';
 const LETTER_PARAGRAPHS = [
   'Oi, amor. Feliz Dia dos Namorados.',
-  'Você sabe que eu falo muito. Me explico, volto, detalho, penso alto... kkkkk. Então dessa vez eu tentei fazer diferente: em vez de mais um textão, eu fiz um lugar. Demorei noites nisso e cada cantinho aqui dentro tem um motivo.',
+  'Você sabe que eu falo muito. Me explico, volto, detalho, penso alto... kkkkk. Então dessa vez eu tentei fazer diferente: em vez de mais um textão, eu fiz um lugar. Do meu jeito, tive a ideia de criar cada cantinho aqui com um motivo.',
   'Coloquei os nossos lugares: o banquinho do pense verde, o sofá vermelho da sala New York, o méqui de sempre, a Lagoa, a praia de noite, as ladeiras. Andando por eles pra montar o jogo, eu percebi uma coisa que no fundo eu já sabia: nenhum desses lugares é especial sozinho. Eles viraram nossos porque você estava neles.',
   'Eu continuo achando que a gente é uma casa em obra, sem previsão de entrega das chaves. E continuo achando essa a melhor parte. Não tenho pressa nenhuma. Construir com você nunca foi o atraso — sempre foi a parte boa.',
   'Obrigada por ser o lugar onde eu durmo de janela aberta e luz apagada. Onde eu posso falar demais sem precisar me explicar. Onde ser eu não é excesso.',
-  'Te amo, Helen. Amo esses seus olhinhos de jabuticaba, pretinhos e brilhantes, os meus favoritos do mundo inteiro. Quando eles me olham, eu entendo o que é casa.',
+  'Amo tu, minha gata. Amo esses seus olhinhos de jabuticaba, pretinhos e brilhantes, os meus favoritos do mundo inteiro. Quando eles me olham, eu entendo o que é casa.',
   'É de dedinho, lembra? Pelo tempo que for.',
 ];
 const LETTER_SIGNATURE = '— tua Cascãozinho';

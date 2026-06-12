@@ -162,7 +162,7 @@ const Platformer = (() => {
         if (newMult > s.combo.mult) { s.combo.mult = newMult; s.combo.popT = 1; }
         if (s.combo.mult >= 5) unlockAchievement('combo5');
         s.score += 10 * s.combo.mult;
-        spawnBurst(h.x + 4, h.y + 3, '#ff4d6d');
+        spawnBurst(h.x + 4, h.y + 3, '#4d9aff');
         SFX.pickup(s.combo.mult);
         const save = Save.get();
         save.totalHearts++;

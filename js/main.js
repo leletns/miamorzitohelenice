@@ -142,7 +142,7 @@ function renderLetter() {
     para.innerHTML = p.replace(/\n/g, '<br>');
     frag.appendChild(para);
     // intercala polaroids entre parágrafos
-    const photoIdx = [1, 3, 5, 7, 8][i];
+    const photoIdx = [1, 3, 5, 8, 10][i];
     if (photoIdx !== undefined && PHOTOS[photoIdx]) {
       const fig = document.createElement('figure');
       fig.className = 'letter-pol' + (i % 2 ? ' tilt-l' : ' tilt-r');

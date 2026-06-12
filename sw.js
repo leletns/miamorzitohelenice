@@ -1,6 +1,6 @@
 // Service worker: guarda TUDO em cache para o presente funcionar
 // offline, para sempre, no celular dela. 💕
-const CACHE = 'miamorzito-v4';
+const CACHE = 'miamorzito-v5';
 
 const ASSETS = [
   './',
@@ -28,6 +28,7 @@ const ASSETS = [
   './assets/photos/p08.jpg',
   './assets/photos/p09.jpg',
   './assets/photos/p10.jpg',
+  './assets/photos/p11.jpg',
 ];
 
 self.addEventListener('install', (e) => {

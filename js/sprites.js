@@ -399,7 +399,7 @@ const HEART_MAP = [
   '..RRRR..',
   '...RR...',
 ];
-const HEART_PAL = { R: '#ff4d6d', W: '#ffc2cf' };
+const HEART_PAL = { R: '#4d9aff', W: '#c8e2ff' };
 
 const RING_MAP = [
   '....W....',
