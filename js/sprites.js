@@ -117,9 +117,9 @@ const HELEN_MAPS = {
 const LE_MAPS = {
   walkA: [
     '.....oooooooooooo.....',
-    '...ooHHHHHHHHHHHHoo...',
+    '...ooHHhHHHHhHHHHoo...',
     '..oHHGGXGGGGGGXGGHHo..',
-    '..oHHHHHHHHHHHHHHHHo..',
+    '..oHHhHHhHHHHhHHhHHo..',
     '.oHHHooooooooooooHHHo.',
     '.oHHoSSSSSSSSSSSSoHHo.',
     '.oHHoSPPSSSSSSPPSoHHo.',
@@ -145,9 +145,9 @@ const LE_MAPS = {
   ],
   walkB: [
     '.....oooooooooooo.....',
-    '...ooHHHHHHHHHHHHoo...',
+    '...ooHHhHHHHhHHHHoo...',
     '..oHHGGXGGGGGGXGGHHo..',
-    '..oHHHHHHHHHHHHHHHHo..',
+    '..oHHhHHhHHHHhHHhHHo..',
     '.oHHHooooooooooooHHHo.',
     '.oHHoSSSSSSSSSSSSoHHo.',
     '.oHHoSPPSSSSSSPPSoHHo.',
@@ -173,9 +173,9 @@ const LE_MAPS = {
   ],
   jump: [
     '.....oooooooooooo.....',
-    '...ooHHHHHHHHHHHHoo...',
+    '...ooHHhHHHHhHHHHoo...',
     '..oHHGGXGGGGGGXGGHHo..',
-    '..oHHHHHHHHHHHHHHHHo..',
+    '..oHHhHHhHHHHhHHhHHo..',
     '.oHHHooooooooooooHHHo.',
     '.oHHoSSSSSSSSSSSSoHHo.',
     '.oHHoSPPSSSSSSPPSoHHo.',
@@ -273,10 +273,10 @@ const CHARACTERS = [
     maps: LE_MAPS,
     w: 22, h: 26,
     palette: {
-      o: '#2a1a14', H: '#241813', h: '#3c2a1e',
+      o: '#241711', H: '#1c1410', h: '#382418',
       S: '#b9805a', P: '#1c0f08', X: '#ffffff',
       m: '#7a3a38', R: '#d98a76',
-      G: '#34343f', V: '#6e9460', W: '#f4f1ea',
+      G: '#2e2e3a', V: '#6e9460', W: '#f4f1ea',
       j: '#3a3f52', K: '#f0ece2',
     },
   },
@@ -287,9 +287,9 @@ const CHARACTERS = [
     maps: HELEN_MAPS,
     w: 22, h: 26,
     palette: {
-      o: '#2a1a14', H: '#4e3120', h: '#6e4a30',
-      S: '#c08a5e', P: '#1c0f08', X: '#ffffff',
-      m: '#7a3a38', R: '#e08a78',
+      o: '#2e1d12', H: '#3a2417', h: '#5e3e26',
+      S: '#f2cfae', P: '#1a0d05', X: '#ffffff',
+      m: '#a8554e', R: '#f0a89c',
       W: '#f6f3ee', J: '#7e9ec2', K: '#f0ece2',
     },
   },
@@ -469,6 +469,130 @@ const ICON_MAPS = {
     pal: { K: '#7e57c2', W: '#efe7fb', B: '#ff5d8f' },
   },
 };
+
+// ============================================================
+// Buquê de girassóis — pixel art procedural (entrada do jogo)
+// Espaço lógico: 120 x 150
+// ============================================================
+function drawBouquet(ctx, canvasW, canvasH, t) {
+  ctx.clearRect(0, 0, canvasW, canvasH);
+  ctx.imageSmoothingEnabled = false;
+  const u = canvasW / 120;
+  const B = (x, y, c) => { // bloco 2x2 (pixel gordo)
+    ctx.fillStyle = c;
+    ctx.fillRect(Math.round(x / 2) * 2 * u, Math.round(y / 2) * 2 * u, Math.ceil(u * 2), Math.ceil(u * 2));
+  };
+  const sway = Math.sin(t * 1.1) * 2;
+
+  const CONE_Y = 96;
+
+  // ---- caule + folhas ----
+  const stems = [
+    { fx: 60, fy: 40, r: 17 },
+    { fx: 31, fy: 64, r: 12 },
+    { fx: 89, fy: 62, r: 12 },
+    { fx: 60, fy: 76, r: 10 },
+  ];
+  for (const s of stems) {
+    const topX = s.fx + sway;
+    for (let yy = CONE_Y; yy > s.fy; yy -= 2) {
+      const p = (CONE_Y - yy) / (CONE_Y - s.fy);
+      const xx = 58 + (topX - 58) * p + (s.fx > 60 ? 2 : s.fx < 60 ? -2 : 0);
+      B(xx, yy, '#3e5e46');
+    }
+  }
+  // folhas
+  const leaf = (lx, ly, dir, big) => {
+    const n = big ? 5 : 4;
+    for (let i = 0; i < n; i++) {
+      B(lx + i * 2 * dir + sway * 0.4, ly - i, i % 2 ? '#6aa06e' : '#4f7d57');
+      B(lx + i * 2 * dir + sway * 0.4, ly - i + 2, '#4f7d57');
+    }
+  };
+  leaf(50, 92, -1, true);
+  leaf(70, 90, 1, true);
+  leaf(46, 80, -1, false);
+  leaf(74, 78, 1, false);
+
+  // ---- girassóis ----
+  const flower = (cx0, cy, r, phase) => {
+    const cx = cx0 + sway * (1 - cy / CONE_Y + 0.4);
+    const wob = Math.sin(t * 2 + phase) * 0.06;
+    // pétalas em duas camadas
+    for (let k = 0; k < 14; k++) {
+      const a = (k / 14) * Math.PI * 2 + wob;
+      const col = k % 2 ? '#f5b82e' : '#ffd95e';
+      for (let d = r * 0.5; d <= r; d += 2) {
+        B(cx + Math.cos(a) * d, cy + Math.sin(a) * d * 0.96, col);
+      }
+      B(cx + Math.cos(a) * (r + 2), cy + Math.sin(a) * (r + 2) * 0.96, '#e8a51e');
+    }
+    // miolo com sementinhas
+    const cr = r * 0.48;
+    for (let yy = -cr; yy <= cr; yy += 2) {
+      for (let xx = -cr; xx <= cr; xx += 2) {
+        if (xx * xx + yy * yy <= cr * cr) {
+          const seed = ((Math.round(xx) + Math.round(yy)) / 2) % 2 === 0;
+          B(cx + xx, cy + yy, seed ? '#5e3a1c' : '#7a4e26');
+        }
+      }
+    }
+    // brilho no miolo
+    B(cx - cr * 0.4, cy - cr * 0.4, '#9c6a36');
+  };
+  flower(60, 40, 17, 0);
+  flower(31, 64, 12, 2.1);
+  flower(89, 62, 12, 4.2);
+  flower(60, 76, 10, 1.3);
+
+  // ---- papel kraft ----
+  for (let yy = CONE_Y; yy <= 142; yy += 2) {
+    const p = (yy - CONE_Y) / (142 - CONE_Y);
+    const half = 28 - 18 * p;
+    for (let xx = 60 - half; xx <= 60 + half; xx += 2) {
+      let c = '#dcc29a';
+      if (xx < 60 - half + 4) c = '#c2a070';
+      if (xx > 60 + half - 4) c = '#b89060';
+      if (Math.abs(xx - 48) < 2 || Math.abs(xx - 72) < 2) c = '#cfb284';
+      B(xx, yy, c);
+    }
+    B(60 - half - 2, yy, '#8a6a42');
+    B(60 + half + 2, yy, '#8a6a42');
+  }
+  // borda de cima do papel (zigue-zague)
+  for (let xx = 32; xx <= 88; xx += 4) {
+    B(xx, CONE_Y - 2, '#efd9b4');
+    B(xx + 2, CONE_Y, '#efd9b4');
+  }
+  // base do papel
+  for (let xx = 50; xx <= 70; xx += 2) B(xx, 144, '#8a6a42');
+
+  // ---- fita rosa ----
+  const ry = 116;
+  const half = 28 - 18 * ((ry - CONE_Y) / (142 - CONE_Y));
+  for (let xx = 60 - half - 2; xx <= 60 + half + 2; xx += 2) {
+    B(xx, ry, '#e0476c');
+    B(xx, ry + 2, '#b53954');
+  }
+  // laço: duas alças coladas na fita + nó central + pontas caindo
+  B(54, ry - 2, '#e0476c'); B(52, ry - 2, '#e0476c'); B(52, ry, '#b53954');
+  B(66, ry - 2, '#e0476c'); B(68, ry - 2, '#e0476c'); B(68, ry, '#b53954');
+  B(60, ry, '#b53954'); B(60, ry - 2, '#b53954');
+  B(58, ry + 4, '#e0476c'); B(58, ry + 6, '#b53954');
+  B(62, ry + 4, '#e0476c'); B(62, ry + 8, '#b53954');
+
+  // ---- brilhinhos ----
+  for (let i = 0; i < 7; i++) {
+    const tw = Math.sin(t * 3 + i * 1.9);
+    if (tw > 0.3) {
+      const sx = 18 + (i * 31) % 88;
+      const sy = 22 + (i * 47) % 70;
+      const c = tw > 0.75 ? '#ffffff' : '#ffd95e';
+      B(sx, sy, c);
+      if (tw > 0.75) { B(sx - 2, sy, c); B(sx + 2, sy, c); B(sx, sy - 2, c); B(sx, sy + 2, c); }
+    }
+  }
+}
 
 function iconDataURL(name, scale) {
   const def = ICON_MAPS[name];

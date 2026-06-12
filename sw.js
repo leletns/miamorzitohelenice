@@ -1,6 +1,6 @@
 // Service worker: guarda TUDO em cache para o presente funcionar
 // offline, para sempre, no celular dela. 💕
-const CACHE = 'miamorzito-v3';
+const CACHE = 'miamorzito-v4';
 
 const ASSETS = [
   './',

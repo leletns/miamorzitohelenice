@@ -109,13 +109,14 @@ const BOARD_LUCK = [
 // ============================================================
 // A declaração — Dia dos Namorados 2026
 // ============================================================
-const LETTER_TITLE = 'Pra você, meu Leãozinho. 🦁💗';
+const LETTER_TITLE = 'Pra você, meu Leãozinho';
 const LETTER_PARAGRAPHS = [
-  'Feliz Dia dos Namorados, amor.',
-  'Eu podia ter comprado flor, chocolate, qualquer coisa que se acaba. Mas você sabe que eu sou de guardar — então eu construí um lugarzinho que é nosso e que não acaba nunca. Tá aqui dentro: nossos cantos, nossas gatinhas, nossos olhinhos de jabuticaba.',
-  'Você já sabe que eu falo muito, kkkkk. Mas hoje eu quis falar diferente: em fase, em coração, em aliança de prata escondida no caminho. Porque é isso que você fez comigo — transformou minha vida em um lugar onde dá vontade de continuar jogando, mesmo quando a fase aperta. Com você eu não tenho pressa de chegar no final. Eu gosto é do caminho.',
-  'Cada cenário desse jogo é um pedaço de nós: o banquinho, o sofá vermelho do cinema, o lanche que vira banquete porque você tá rindo na minha frente, a lagoa, o mar de noite, as ladeiras. Em todos eles eu descobri a mesma coisa: casa não é lugar, é você.',
-  'Então joga sem medo, meu amor. Perde coração, ganha de novo, tenta outra vez — que nem a gente. Eu tô aqui pra nós, pelo tempo que for. Pode confiar: é de dedinho. ☝🏽',
-  'Te amo, meus olhinhos de jabuticaba.\nHoje, amanhã e em todas as fases que vierem.',
+  'Oi, amor. Feliz Dia dos Namorados.',
+  'Você sabe que eu falo muito. Me explico, volto, detalho, penso alto... kkkkk. Então dessa vez eu tentei fazer diferente: em vez de mais um textão, eu fiz um lugar. Demorei noites nisso e cada cantinho aqui dentro tem um motivo.',
+  'Coloquei os nossos lugares: o banquinho do pense verde, o sofá vermelho da sala New York, o méqui de sempre, a Lagoa, a praia de noite, as ladeiras. Andando por eles pra montar o jogo, eu percebi uma coisa que no fundo eu já sabia: nenhum desses lugares é especial sozinho. Eles viraram nossos porque você estava neles.',
+  'Eu continuo achando que a gente é uma casa em obra, sem previsão de entrega das chaves. E continuo achando essa a melhor parte. Não tenho pressa nenhuma. Construir com você nunca foi o atraso — sempre foi a parte boa.',
+  'Obrigada por ser o lugar onde eu durmo de janela aberta e luz apagada. Onde eu posso falar demais sem precisar me explicar. Onde ser eu não é excesso.',
+  'Te amo, Helen. Amo esses seus olhinhos de jabuticaba, pretinhos e brilhantes, os meus favoritos do mundo inteiro. Quando eles me olham, eu entendo o que é casa.',
+  'É de dedinho, lembra? Pelo tempo que for.',
 ];
-const LETTER_SIGNATURE = '— Tua, Cascãozinho 💜';
+const LETTER_SIGNATURE = '— tua Cascãozinho';

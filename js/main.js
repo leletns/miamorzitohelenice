@@ -210,7 +210,24 @@ document.addEventListener('DOMContentLoaded', () => {
     document.fonts.load('6px "Press Start 2P"');
   }
 
-  show('screen-home');
+  // entrada: buquê de girassóis animado
+  const bq = document.getElementById('bouquet');
+  if (bq) {
+    const bctx = bq.getContext('2d');
+    const t0 = performance.now();
+    const animate = (now) => {
+      if (!document.getElementById('screen-intro').classList.contains('active')) return;
+      drawBouquet(bctx, bq.width, bq.height, (now - t0) / 1000);
+      requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+    document.getElementById('screen-intro').addEventListener('click', () => {
+      SFX.card();
+      show('screen-home');
+    });
+  }
+
+  show('screen-intro');
 });
 
 // ---------- PWA: offline para sempre ----------
