@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#ffe9f0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Mi Amorzito 💕">
+  <title>Mi Amorzito Helenice 💕</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/icons/icon-180.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===================== HUB ===================== -->
+  <section id="screen-home" class="screen active">
+    <div id="floating-hearts"></div>
+    <header class="home-header">
+      <h1 class="title">Mi Amorzito<br>Helenice <span class="beat">💕</span></h1>
+      <p class="subtitle">Feliz Dia dos Namorados, meu Leãozinho 🦁</p>
+    </header>
+    <img class="home-photo" src="assets/photos/p01.jpg" alt="Nós duas 💕">
+    <nav class="home-cards">
+      <button class="home-card card-adventure" data-goto="screen-charselect">
+        <span class="hc-emoji">🕹️</span>
+        <span class="hc-title">Nossa Aventura</span>
+        <span class="hc-sub">Pule pelos nossos cantinhos coletando ❤️ e 💍</span>
+      </button>
+      <button class="home-card card-board" data-goto="screen-board">
+        <span class="hc-emoji">🎲</span>
+        <span class="hc-title">Tabuleiro do Amor</span>
+        <span class="hc-sub">Pra jogarmos juntinhas... 💗🔥</span>
+      </button>
+      <button class="home-card card-album" data-goto="screen-album">
+        <span class="hc-emoji">📸</span>
+        <span class="hc-title">Nosso Álbum</span>
+        <span class="hc-sub">Fotos e conquistas desbloqueadas</span>
+      </button>
+      <button class="home-card card-letter" data-goto="screen-letter">
+        <span class="hc-emoji">💌</span>
+        <span class="hc-title">Nossa Cartinha</span>
+        <span class="hc-sub">Abre, vai... é pra você</span>
+      </button>
+    </nav>
+    <footer class="home-footer">feito com muito amor pela Lê 💜 — 12/06/2026</footer>
+  </section>
+
+  <!-- ============ SELEÇÃO DE PERSONAGEM ============ -->
+  <section id="screen-charselect" class="screen">
+    <button class="btn-back" data-goto="screen-home">← voltar</button>
+    <h2 class="screen-title">Quem vai jogar? 💕</h2>
+    <div id="char-grid" class="char-grid"></div>
+
+    <div class="shop">
+      <h3>Lojinha de acessórios <span class="bank">💍 <span id="rings-bank">0</span></span></h3>
+      <p class="shop-hint">Colete alianças de prata nas fases para comprar!</p>
+      <div id="shop-grid" class="shop-grid"></div>
+    </div>
+
+    <button id="btn-continue" class="btn-big">▶ Começar aventura</button>
+    <button id="btn-restart-lv1" class="btn-small">↺ Recomeçar do Nível 1</button>
+  </section>
+
+  <!-- ================== JOGO 1 ===================== -->
+  <section id="screen-game" class="screen screen-dark">
+    <button class="btn-back btn-back-game" data-goto="screen-charselect">← sair</button>
+    <div class="game-wrap">
+      <canvas id="game-canvas" width="320" height="180"></canvas>
+    </div>
+    <div class="touch-controls">
+      <div class="tc-left">
+        <button id="btn-left" class="tc-btn">◀</button>
+        <button id="btn-right" class="tc-btn">▶</button>
+      </div>
+      <button id="btn-jump" class="tc-btn tc-jump">⬆<br><small>pular</small></button>
+    </div>
+
+    <!-- Polaroid de fim de fase -->
+    <div id="polaroid-overlay" class="overlay hidden">
+      <div class="polaroid">
+        <img class="pol-photo" src="" alt="">
+        <p class="pol-place"></p>
+        <p class="pol-phrase"></p>
+        <p class="pol-stats"></p>
+        <p class="pol-album"></p>
+        <div class="pol-btns">
+          <button id="btn-pol-next" class="btn-big">Próxima fase →</button>
+          <button id="btn-pol-menu" class="btn-small">🏠 Menu</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== JOGO 2 ===================== -->
+  <section id="screen-board" class="screen">
+    <button class="btn-back" data-goto="screen-home">← voltar</button>
+    <h2 class="screen-title">Tabuleiro do Amor 💗🔥</h2>
+    <div id="turn-banner" class="turn-banner">Vez do Leãozinho 🦁</div>
+
+    <div id="board-wrap" class="board-wrap">
+      <div id="board-grid" class="board-grid"></div>
+    </div>
+
+    <div class="dice-area">
+      <div id="dice" class="dice"></div>
+      <div class="dice-side">
+        <button id="btn-roll" class="btn-big">🎲 Rolar dado</button>
+        <div id="dice-result" class="dice-result"></div>
+      </div>
+    </div>
+    <p class="board-hint">💗 fofa · 🔥 picante · ⭐ sorte · 📸 memória — quem chegar no 🏠 LAR primeiro vence (mas spoiler: as duas ganham)</p>
+
+    <!-- Carta de desafio -->
+    <div id="card-overlay" class="overlay hidden">
+      <div id="card-box" class="card-box">
+        <p id="card-title" class="card-title"></p>
+        <p id="card-player" class="card-player"></p>
+        <img id="card-photo" class="card-photo hidden" src="" alt="">
+        <p id="card-text" class="card-text"></p>
+        <button id="btn-card-done" class="btn-big">Feito! 💕</button>
+      </div>
+    </div>
+
+    <!-- Vitória -->
+    <div id="board-win" class="overlay hidden">
+      <div class="polaroid">
+        <p id="win-title" class="pol-place"></p>
+        <img id="win-photo" class="pol-photo" src="" alt="">
+        <p class="pol-phrase">Mas a verdade é que nesse jogo as duas sempre ganham. 💕<br>Eu te amo, meus olhinhos de jabuticaba. 🍇</p>
+        <div class="pol-btns">
+          <button id="btn-win-replay" class="btn-big">Jogar de novo 🎲</button>
+          <button id="btn-win-menu" class="btn-small">🏠 Menu</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ÁLBUM ==================== -->
+  <section id="screen-album" class="screen">
+    <button class="btn-back" data-goto="screen-home">← voltar</button>
+    <h2 class="screen-title">Nosso Álbum 📸 <small id="album-count"></small></h2>
+    <p id="album-stats" class="album-stats"></p>
+    <div id="album-photos" class="album-photos"></div>
+    <h3 class="screen-sub">Conquistas 🏅</h3>
+    <div id="album-achievements" class="album-achievements"></div>
+  </section>
+
+  <!-- ================== CARTINHA =================== -->
+  <section id="screen-letter" class="screen screen-letter">
+    <button class="btn-back" data-goto="screen-home">← voltar</button>
+    <article class="letter">
+      <h2 id="letter-title" class="letter-title"></h2>
+      <div id="letter-body"></div>
+    </article>
+  </section>
+
+  <div id="toasts"></div>
+  <div id="confetti"></div>
+
+  <script src="js/challenges.js"></script>
+  <script src="js/sprites.js"></script>
+  <script src="js/levels.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/platformer.js"></script>
+  <script src="js/board.js"></script>
+</body>
+</html>
